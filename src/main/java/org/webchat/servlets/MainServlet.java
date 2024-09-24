@@ -17,10 +17,10 @@ public class MainServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
 
-        // Hello
         PrintWriter writer = response.getWriter();
-        BufferedReader reader = new BufferedReader(FileLaunch.loadFile(request, "/WEB-INF/main-screen.html"));
+        BufferedReader reader = new BufferedReader(FileLaunch.loadFile(request, "/main-screen.html"));
         FileLaunch.launchHtml(reader,writer);
+        request.getSession().setMaxInactiveInterval(-1);
         writer.close();
         reader.close();
 
