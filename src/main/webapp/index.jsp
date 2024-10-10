@@ -1,13 +1,20 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <!DOCTYPE html>
-<html>
+<html lang=“ru”>
 <head>
-    <title>JSP - Hello World</title>
+    <meta charset=“UTF-8”>
+    <meta content=“width=device-width, initial-scale=1.0” name=“viewport”>
+    <title>Вебчат</title>
+    <link href="CSS/styles.css" rel=“stylesheet”>
 </head>
 <body>
-<h1><%= "Hello World!" %>
-</h1>
-<br/>
-<a href="hello">Hello Servlet</a>
+<div class=“container”>
+    <h1>Добро пожаловать в наш Вебчат!</h1>
+    <div class=“button-container”>
+        <button onclick="window.location.href='profile';">Личный кабинет</button>
+        <button onclick="window.location.href='list-chats';">Переход к списку чатов</button>
+    </div>
+</div>
 </body>
 </html>

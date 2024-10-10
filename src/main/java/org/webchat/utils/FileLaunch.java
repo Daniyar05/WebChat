@@ -15,7 +15,7 @@ public class FileLaunch {
     }
 
 
-    public static FileReader loadFile(HttpServletRequest request, String relativePath){
+    public static FileReader loadFile(HttpServletRequest request, String relativePath) {
         ServletContext sc = request.getServletContext();
         try {
             return new FileReader(sc.getRealPath(relativePath));

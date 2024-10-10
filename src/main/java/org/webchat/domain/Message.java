@@ -1,9 +1,9 @@
 package org.webchat.domain;
 
+import java.io.Serializable;
 import java.util.Date;
-import java.util.Objects;
 
-public final class Message {
+public final class Message implements Serializable {
     private final Date data;
     private final String idFrom;
     private final String content;
@@ -12,7 +12,12 @@ public final class Message {
         this.idFrom = idFrom;
         this.content = content;
         data = new Date();
+    }
 
+    public Message(Date data, String idFrom, String content) {
+        this.data = data;
+        this.idFrom = idFrom;
+        this.content = content;
     }
 
     public String idFrom() {
@@ -23,21 +28,6 @@ public final class Message {
     public String content() {
         return content;
     }
-
-//    @Override
-//    public boolean equals(Object obj) {
-//        if (obj == this) return true;
-//        if (obj == null || obj.getClass() != this.getClass()) return false;
-//        var that = (Message) obj;
-//        return Objects.equals(this.idFrom, that.idFrom) &&
-//                Objects.equals(this.idChat, that.idChat) &&
-//                Objects.equals(this.content, that.content);
-//    }
-
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(idFrom, idChat, content);
-//    }
 
     @Override
     public String toString() {

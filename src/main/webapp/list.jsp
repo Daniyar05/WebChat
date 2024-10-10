@@ -1,6 +1,6 @@
-
 <%@ page import="java.util.List" %>
 <%@ page import="org.webchat.domain.Chat" %>
+<%@ page import="org.webchat.domain.User" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -17,7 +17,8 @@
 %>
 <ul>
     <%for (Chat chat : chats) {%>
-        <li><a href="chat?ID_CHAT=<%= chat.getIdChat() %>"><%= chat.getIdChat() %></a></li>
+        <li><a href="chat?ID_CHAT=<%= chat.getIdChat() %>"><%= chat.getIdChat() %>
+        </a></li>
     <%}%>
 </ul>
 <%
@@ -27,6 +28,8 @@
 <%
     }
 %>
-<li> <a href="create-chat">Создать чат</a> </li>
+<li><a href="create-chat?ID_USER=<%=request.getAttribute("user_id")%>">Создать чат</a></li>
+<li><a href="add-chat?ID_USER=<%=request.getAttribute("user_id")%>">Добавить чат</a></li>
+
 </body>
 </html>

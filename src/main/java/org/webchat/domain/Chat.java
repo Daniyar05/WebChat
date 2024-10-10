@@ -5,13 +5,18 @@ import java.util.List;
 import java.util.UUID;
 
 public class Chat {
-    List<Message> history;
     final String idChat;
+    List<Message> history;
 
 
     public Chat() {
         idChat = UUID.randomUUID().toString();
         history = new ArrayList<>();
+    }
+
+    public Chat(String idChat, List<Message> history) {
+        this.idChat = idChat;
+        this.history = history;
     }
 
     public List<Message> getHistory() {
@@ -22,7 +27,7 @@ public class Chat {
         return idChat;
     }
 
-    public void addMessage(Message message){
+    public void addMessage(Message message) {
         history.add(message);
     }
 }
