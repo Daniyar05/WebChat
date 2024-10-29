@@ -25,10 +25,14 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
         Optional<User> user = UsersRepoImpl.getUser(username,password);
         if (user.isPresent()) {
-            request.getSession().setAttribute("user", user.get());
-            response.sendRedirect(request.getContextPath() + "/list-chats");
-        } else {
-            response.sendRedirect("login.jsp?error=true");
+
+            request.getSession().setAttribute("userId", user.get().getId());
+            request.getSession().setAttribute("username", user.get().getUsername());
+
+            response.sendRedirect(request.getContextPath() + "/profile");
+            return;
         }
+        response.sendRedirect("login.jsp?error=true");
+
     }
 }

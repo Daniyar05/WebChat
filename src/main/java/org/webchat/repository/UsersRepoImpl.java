@@ -20,4 +20,7 @@ public class UsersRepoImpl {
     public static void addUserChat(String userId, String chatId){
         USER_DAO.addUserChat(userId, chatId);
     }
+    public static void replaceUsername(String userId, String newUsername){
+        USER_DAO.replaceUsername(userId, newUsername);
+    }
 }

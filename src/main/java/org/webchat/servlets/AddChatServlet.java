@@ -12,13 +12,13 @@ import java.io.IOException;
 @WebServlet(name = "AddChatServlet", value = "/add-chat")
 public class AddChatServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.sendRedirect("add-chat.jsp");
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        UsersRepoImpl.addUserChat(((User) request.getSession().getAttribute("user")).getId(), request.getParameter("chatId"));
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        UsersRepoImpl.addUserChat((String) request.getSession().getAttribute("userId"), request.getParameter("chatId"));
         response.sendRedirect(request.getContextPath() + "/list-chats");
 
     }

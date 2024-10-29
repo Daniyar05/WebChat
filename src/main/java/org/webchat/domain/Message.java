@@ -5,23 +5,23 @@ import java.util.Date;
 
 public final class Message implements Serializable {
     private final Date data;
-    private final String idFrom;
     private final String content;
+    private final User userFrom;
 
-    public Message(String idFrom, String content) {
-        this.idFrom = idFrom;
+    public Message(User userFrom, String content) {
+        this.userFrom = userFrom;
         this.content = content;
         data = new Date();
     }
 
-    public Message(Date data, String idFrom, String content) {
+    public Message(Date data, User userFrom, String content) {
         this.data = data;
-        this.idFrom = idFrom;
+        this.userFrom = userFrom;
         this.content = content;
     }
 
-    public String idFrom() {
-        return idFrom;
+    public User userFrom() {
+        return userFrom;
     }
 
 
@@ -32,7 +32,7 @@ public final class Message implements Serializable {
     @Override
     public String toString() {
         return "Message[" +
-                "idFrom=" + idFrom + ", " +
+                "userFrom=" + userFrom + ", " +
                 "content=" + content + ']';
     }
 

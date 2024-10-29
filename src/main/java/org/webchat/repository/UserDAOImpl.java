@@ -28,7 +28,7 @@ public class UserDAOImpl implements UserDAO {
                 while (userChatsResultSet.next()) {
                     chats.add(userChatsResultSet.getString("id_chat"));
                 }
-                return Optional.of(new User(idUser,userResultSet.getString(2), userResultSet.getString(4), chats, userResultSet.getString(3)));
+                return Optional.of(new User(idUser,userResultSet.getString(2), chats, userResultSet.getString(3)));
             }
 
         } catch (SQLException e) {
@@ -39,10 +39,9 @@ public class UserDAOImpl implements UserDAO {
     public Optional<User> getUser(String username, String password) {
         String userQuery = "SELECT * FROM users WHERE username = ? AND password_hash = ?";
         String userChatsQuery = "SELECT id_chat FROM user_chats WHERE id_user = ?";
-
         try (Connection connection = DatabaseConnection.getConnection();
-             PreparedStatement userStatement = connection.prepareStatement(userQuery);
-             PreparedStatement userChatsStatement = connection.prepareStatement(userChatsQuery)) {
+            PreparedStatement userStatement = connection.prepareStatement(userQuery);
+            PreparedStatement userChatsStatement = connection.prepareStatement(userChatsQuery)) {
             userStatement.setString(1, username);
             userStatement.setString(2, String.valueOf(password.hashCode()));
             ResultSet userResultSet = userStatement.executeQuery();
@@ -51,10 +50,12 @@ public class UserDAOImpl implements UserDAO {
                 List<String> chats = new ArrayList<>();
                 userChatsStatement.setString(1, userResultSet.getString(1));
                 ResultSet userChatsResultSet = userChatsStatement.executeQuery();
+
                 while (userChatsResultSet.next()) {
                     chats.add(userChatsResultSet.getString("id_chat"));
                 }
-                return Optional.of(new User(userResultSet.getString(1),userResultSet.getString(2), userResultSet.getString(4), chats, userResultSet.getString(3)));
+
+                return Optional.of(new User(userResultSet.getString(1),userResultSet.getString(2), chats, userResultSet.getString(3)));
             }
 
         } catch (SQLException e) {
@@ -65,7 +66,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void addUser(User user) {
-        String userQuery = "INSERT INTO users (id_user, username, password_hash, email) VALUES (?,?,?,?)";
+        String userQuery = "INSERT INTO users (id_user, username, password_hash) VALUES (?,?,?)";
 
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement userStatement = connection.prepareStatement(userQuery)) {
@@ -73,7 +74,6 @@ public class UserDAOImpl implements UserDAO {
             userStatement.setString(1, user.getId());
             userStatement.setString(2, user.getUsername());
             userStatement.setString(3, user.getPasswordHash());
-            userStatement.setString(4, user.getEmail());
 
             userStatement.executeUpdate();
 
@@ -98,5 +98,20 @@ public class UserDAOImpl implements UserDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public void replaceUsername(String userId, String newUsername){
+        String userQuery = "UPDATE users SET username=? WHERE id_user=?";
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement userStatement = connection.prepareStatement(userQuery)) {
+
+            userStatement.setString(1, newUsername);
+            userStatement.setString(2, userId);
+            userStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 }

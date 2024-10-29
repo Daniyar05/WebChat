@@ -1,34 +1,30 @@
-package org.webchat.domain;
+package org.webchat.data;
+
+import org.webchat.domain.Chat;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class User {
+public class UserNew {
     final String id;
     List<String> chats;
     String username;
-    String passwordHash;
 
     public void setUsername(String username) {
         this.username = username;
     }
 
-    public String getPasswordHash() {
-        return passwordHash;
-    }
 
-    public User(String id, String username, String passwordHash) {
+    public UserNew(String id, String username) {
         this.username = username;
         this.id = id;
         chats = new ArrayList<>();
-        this.passwordHash = passwordHash;
     }
 
-    public User(String id, String username, List<String> chats, String passwordHash) {
+    public UserNew(String id, String username, List<String> chats, String passwordHash) {
         this.id = id;
         this.chats = chats;
         this.username = username;
-        this.passwordHash = passwordHash;
     }
 
 

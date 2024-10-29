@@ -10,22 +10,26 @@ import org.webchat.repository.UsersRepoImpl;
 import org.webchat.utils.ChatsLaunch;
 
 import java.io.IOException;
+import java.util.Optional;
 
 @WebServlet(name = "ListChatsServlet", value = "/list-chats")
 public class ListChatsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
-        User thisUser = (User) request.getSession().getAttribute("user");
-        if (thisUser==null) {
-            response.sendRedirect(request.getContextPath() + "/profile");
+        String thisUserId = (String) request.getSession().getAttribute("userId");
+
+        Optional<User> optionalUser = UsersRepoImpl.getUser(thisUserId);
+        if (optionalUser.isPresent()){
+            User user = optionalUser.get();
+            //TODO сделать токены для регистрации и логирование пользователя
+            request.setAttribute("chats", ChatsLaunch.getChat(user.getIdChats()));
+            request.setAttribute("user_id", user.getId());
+
+
+            request.getRequestDispatcher("/list.jsp").forward(request, response);
             return;
         }
-        User user = UsersRepoImpl.getUser(thisUser.getId()).get();
-        //TODO сделать токены для регистрации и логирование пользователя
-        request.setAttribute("chats", ChatsLaunch.getChat(user.getIdChats()));
-        request.setAttribute("user_id", thisUser.getId());
-
-        request.getRequestDispatcher("/list.jsp").forward(request, response);
+        response.sendRedirect(request.getContextPath() + "/login");
     }
 }

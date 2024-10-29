@@ -19,4 +19,10 @@ public class ChatRepoImpl {
     public static void addMessage(String idChat, Message message){
         chatDAO.addMessage(idChat, message);
     }
+    public static void renameChat(String idChat, String newName){
+        chatDAO.renameChat(idChat, newName);
+    }
+    public static void deleteChat(String idChat){
+        chatDAO.deleteChat(idChat);
+    }
 }

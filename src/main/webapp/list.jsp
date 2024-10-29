@@ -1,8 +1,6 @@
-<%@ page import="java.util.List" %>
-<%@ page import="org.webchat.domain.Chat" %>
-<%@ page import="org.webchat.domain.User" %>
+<%@ page contentType="text/html;charset=UTF-8"  %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Ваши чаты</title>
@@ -10,26 +8,27 @@
 <body>
 <h1>Ваши чаты</h1>
 
-<%
-    @SuppressWarnings("unchecked")
-    List<Chat> chats = (List<Chat>) request.getAttribute("chats"); // Получаем список чатов из атрибутов запроса.
-    if (chats != null && !chats.isEmpty()) {
-%>
-<ul>
-    <%for (Chat chat : chats) {%>
-        <li><a href="chat?ID_CHAT=<%= chat.getIdChat() %>"><%= chat.getIdChat() %>
-        </a></li>
-    <%}%>
-</ul>
-<%
-} else {
-%>
-<p>У вас нет доступных чатов.</p>
-<%
-    }
-%>
-<li><a href="create-chat?ID_USER=<%=request.getAttribute("user_id")%>">Создать чат</a></li>
-<li><a href="add-chat?ID_USER=<%=request.getAttribute("user_id")%>">Добавить чат</a></li>
+<c:if test="${chats != null && !chats.isEmpty()}">
+    <ul>
+        <c:forEach var="chat" items="${chats}" >
+            <li><a href="chat?ID_CHAT=${ chat.getIdChat() }">${chat.getName()}</a></li>
+            <form id="delete-chat" method="post" action="delete-chat">
+                <input type="hidden" name="chatId" value="${chat.getIdChat()}"/>
+                <button type="submit">Delete Chat</button>
+            </form>
 
+        </c:forEach>
+    </ul>
+</c:if>
+
+<c:if test="${chats == null || chats.isEmpty()}">
+    <p>У вас нет доступных чатов.</p>
+</c:if>
+
+<li><a href="create-chat?ID_USER=${user_id}">Создать чат</a></li>
+<li><a href="add-chat?ID_USER=${user_id}">Добавить чат</a></li>
+<div class=“button-container”>
+    <button onclick="window.location.href='profile';">Личный кабинет</button>
+</div>
 </body>
 </html>

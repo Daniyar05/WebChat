@@ -6,7 +6,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.webchat.domain.Chat;
-import org.webchat.domain.User;
 import org.webchat.repository.ChatRepoImpl;
 import org.webchat.repository.UsersRepoImpl;
 
@@ -23,4 +22,5 @@ public class CreateChatServlet extends HttpServlet {
 
         response.sendRedirect(request.getContextPath() + "/list-chats");
     }
+
 }
