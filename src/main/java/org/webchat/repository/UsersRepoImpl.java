@@ -14,8 +14,8 @@ public class UsersRepoImpl {
         return USER_DAO.getUser(username, password);
     }
 
-    public static void addUser(User user) {
-        USER_DAO.addUser(user);
+    public static void addUser(User user, String password) {
+        USER_DAO.addUser(user, password);
     }
     public static void addUserChat(String userId, String chatId){
         USER_DAO.addUserChat(userId, chatId);

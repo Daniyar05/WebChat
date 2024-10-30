@@ -1,9 +1,8 @@
 package org.webchat.domain;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public final class Message implements Serializable {
+public final class Message  {
     private final Date data;
     private final String content;
     private final User userFrom;

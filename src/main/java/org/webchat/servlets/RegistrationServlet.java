@@ -24,8 +24,8 @@ public class RegistrationServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        User newUser = new User(UUID.randomUUID().toString(), username, String.valueOf(password.hashCode()));
-        UsersRepoImpl.addUser(newUser);
+        User newUser = new User(UUID.randomUUID().toString(), username);
+        UsersRepoImpl.addUser(newUser, password);
 
         response.setContentType("text/html");
         response.getWriter().println("<h2>Регистрация успешна!</h2>");

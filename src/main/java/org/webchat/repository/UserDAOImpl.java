@@ -1,6 +1,7 @@
 package org.webchat.repository;
 
 import org.webchat.domain.User;
+import org.webchat.utils.PasswordHasher;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ public class UserDAOImpl implements UserDAO {
                 while (userChatsResultSet.next()) {
                     chats.add(userChatsResultSet.getString("id_chat"));
                 }
-                return Optional.of(new User(idUser,userResultSet.getString(2), chats, userResultSet.getString(3)));
+                return Optional.of(new User(idUser,userResultSet.getString("username"), chats));
             }
 
         } catch (SQLException e) {
@@ -43,7 +44,7 @@ public class UserDAOImpl implements UserDAO {
             PreparedStatement userStatement = connection.prepareStatement(userQuery);
             PreparedStatement userChatsStatement = connection.prepareStatement(userChatsQuery)) {
             userStatement.setString(1, username);
-            userStatement.setString(2, String.valueOf(password.hashCode()));
+            userStatement.setString(2, PasswordHasher.getHashPassword(password));
             ResultSet userResultSet = userStatement.executeQuery();
 
             if (userResultSet.next()) {
@@ -55,7 +56,7 @@ public class UserDAOImpl implements UserDAO {
                     chats.add(userChatsResultSet.getString("id_chat"));
                 }
 
-                return Optional.of(new User(userResultSet.getString(1),userResultSet.getString(2), chats, userResultSet.getString(3)));
+                return Optional.of(new User(userResultSet.getString("id_user"),userResultSet.getString("username"), chats));
             }
 
         } catch (SQLException e) {
@@ -65,7 +66,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void addUser(User user) {
+    public void addUser(User user, String password) {
         String userQuery = "INSERT INTO users (id_user, username, password_hash) VALUES (?,?,?)";
 
         try (Connection connection = DatabaseConnection.getConnection();
@@ -73,8 +74,7 @@ public class UserDAOImpl implements UserDAO {
 
             userStatement.setString(1, user.getId());
             userStatement.setString(2, user.getUsername());
-            userStatement.setString(3, user.getPasswordHash());
-
+            userStatement.setString(3, PasswordHasher.getHashPassword(password));
             userStatement.executeUpdate();
 
             for (String chatId : user.getIdChats()) {

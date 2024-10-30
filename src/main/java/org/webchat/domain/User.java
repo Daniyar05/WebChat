@@ -1,34 +1,30 @@
 package org.webchat.domain;
 
+import org.webchat.domain.Chat;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class User {
-    final String id;
-    List<String> chats;
-    String username;
-    String passwordHash;
+    private final String id;
+    private List<String> chats;
+    private String username;
 
     public void setUsername(String username) {
         this.username = username;
     }
 
-    public String getPasswordHash() {
-        return passwordHash;
-    }
 
-    public User(String id, String username, String passwordHash) {
+    public User(String id, String username) {
         this.username = username;
         this.id = id;
         chats = new ArrayList<>();
-        this.passwordHash = passwordHash;
     }
 
-    public User(String id, String username, List<String> chats, String passwordHash) {
+    public User(String id, String username, List<String> chats) {
         this.id = id;
         this.chats = chats;
         this.username = username;
-        this.passwordHash = passwordHash;
     }
 
 
@@ -36,9 +32,6 @@ public class User {
         return username;
     }
 
-    public List<String> getChats() {
-        return chats;
-    }
 
     public void addChat(Chat chat) {
         chats.add(chat.getIdChat());
