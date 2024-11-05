@@ -1,5 +1,7 @@
 package org.webchat.repository;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.webchat.domain.User;
 import org.webchat.utils.PasswordHasher;
 
@@ -9,6 +11,8 @@ import java.util.List;
 import java.util.Optional;
 
 public class UserDAOImpl implements UserDAO {
+
+    private static final Logger log = LoggerFactory.getLogger(UserDAOImpl.class);
 
     @Override
     public Optional<User> getUser(String idUser) {

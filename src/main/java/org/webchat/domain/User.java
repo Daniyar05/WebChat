@@ -9,6 +9,7 @@ public class User {
     private final String id;
     private List<String> chats;
     private String username;
+    private String mood;
 
     public void setUsername(String username) {
         this.username = username;
@@ -45,4 +46,11 @@ public class User {
         return chats;
     }
 
+    public String getMood() {
+        return mood;
+    }
+
+    public void setMood(String mood) {
+        this.mood = mood;
+    }
 }

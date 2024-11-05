@@ -30,5 +30,8 @@
 <div class=“button-container”>
     <button onclick="window.location.href='profile';">Личный кабинет</button>
 </div>
+<div class=“button-container”>
+    <button onclick="window.location.href='select-chat';">Подбор чата</button>
+</div>
 </body>
 </html>

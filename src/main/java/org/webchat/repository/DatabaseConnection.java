@@ -23,4 +23,8 @@ public class DatabaseConnection {
 
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }
+    public static Connection getConnectionPostrges() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+        Class.forName("org.postgresql.Driver");
+        return DriverManager.getConnection(URL, USER, PASSWORD);
+    }
 }
