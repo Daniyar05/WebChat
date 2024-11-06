@@ -12,7 +12,7 @@
             width: 300px;
             height: 300px;
             overflow-y: scroll;
-            resize: both; /* Позволяет изменять размер как по вертикали, так и по горизонтали */
+            resize: both;
         }
 
         #message-form {
@@ -22,8 +22,8 @@
         #message-input {
             width: calc(100% - 20px);
             padding: 10px;
-            resize: none; /* Отключаем ручное изменение размера */
-            overflow: hidden; /* Скрываем полосы прокрутки */
+            resize: none;
+            overflow: hidden;
             border: 1px solid #ccc;
             border-radius: 4px;
             font-size: 16px;

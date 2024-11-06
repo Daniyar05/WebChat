@@ -36,10 +36,14 @@ public class ChatServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/profile");
             return;
         }
-
-        request.setAttribute("chat", thisChat);
-        request.setAttribute("messagesJson", new Gson().toJson(thisChat.getHistory()));
-        request.getRequestDispatcher("/chat.jsp").forward(request, response);
+        Optional<User> thisUser = UsersRepoImpl.getUser(userId);
+        if (thisUser.isPresent() && thisUser.get().getIdChats().contains(idChat)){
+            request.setAttribute("chat", thisChat);
+            request.setAttribute("messagesJson", new Gson().toJson(thisChat.getHistory()));
+            request.getRequestDispatcher("/chat.jsp").forward(request, response);
+            return;
+        }
+        response.sendRedirect(request.getContextPath() + "/list-chats");
 
     }
 

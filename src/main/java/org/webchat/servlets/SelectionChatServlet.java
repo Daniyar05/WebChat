@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.webchat.domain.User;
 import org.webchat.usecase.CreateChatForTwoUser;
 import org.webchat.usecase.UserManager;
 
@@ -22,12 +23,21 @@ public class SelectionChatServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String mood = request.getParameter("mood");
         String suitableUserId = getSuitableUser(mood);
-        CreateChatForTwoUser.createChat(suitableUserId, (String) request.getAttribute("userId"));
-
-        request.getRequestDispatcher("/result.jsp").forward(request, response);
+        System.out.println(suitableUserId);
+        if (suitableUserId == null){
+            request.setAttribute("notFoundException", true);
+            request.getRequestDispatcher("/select-chat.jsp?").forward(request, response);
+            return;
+        }
+        String idNewChat = CreateChatForTwoUser.createChat(suitableUserId, (String) request.getAttribute("userId"));
+        request.getRequestDispatcher("/chat?ID_CHAT=" + idNewChat).forward(request, response);
     }
 
     private String getSuitableUser(String mood) {
-        return Objects.requireNonNull(UserManager.getRandomUserBasedOnMood(mood)).getId();
+        User user = UserManager.getRandomUserBasedOnMood(mood);
+        if (user == null) {
+            return null;
+        }
+        return user.getId();
     }
 }
