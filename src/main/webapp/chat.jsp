@@ -1,9 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
 <html>
 <head>
+    <script src="<c:url value="/functions.js"/>"></script>
+
     <title>Чат: ${chat.getName()} </title>
     <style>
         #chat-box {
@@ -57,19 +58,15 @@
     <button type="submit">Отправить</button>
 </form>
 
-<%--<c:set var="chatId" value="${chat.idChat}"/>--%>
-<%--<button onclick="deleteData('${chatId}')">Delete Chat</button>--%>
-<%--<script>--%>
-<%--    function deleteData(chatId) {--%>
-<%--        const request = new XMLHttpRequest();--%>
-<%--        request.open("DELETE", "edit-chat");--%>
-<%--        request.setRequestHeader("chatId", chatId);--%>
-<%--        request.send();--%>
-<%--    }--%>
-<%--</script>--%>
-<form id="delete-chat" method="post" action="delete-chat">
-    <input type="hidden" name="chatId" value="${chat.idChat}"/>
-    <button type="submit">Delete Chat</button>
-</form>
+<c:set var="chatId" value="${chat.idChat}"/>
+<button onclick="deleteChat('${chatId}', '<c:url value="/"/>')">Delete Chat</button>
+
+<%--<form id="delete-chat" method="post" action="delete-chat">--%>
+<%--    <input type="hidden" name="chatId" value="${chat.idChat}"/>--%>
+<%--    <button type="submit">Delete Chat</button>--%>
+<%--</form>--%>
+
+
+
 </body>
 </html>

@@ -42,16 +42,19 @@ public class UserDAOImpl implements UserDAO {
         return Optional.empty();
     }
     public Optional<User> getUser(String username, String password) {
-        String userQuery = "SELECT * FROM users WHERE username = ? AND password_hash = ?";
+        String userQuery = "SELECT * FROM users WHERE username = ?";
         String userChatsQuery = "SELECT id_chat FROM user_chats WHERE id_user = ?";
         try (Connection connection = DatabaseConnection.getConnection();
             PreparedStatement userStatement = connection.prepareStatement(userQuery);
             PreparedStatement userChatsStatement = connection.prepareStatement(userChatsQuery)) {
             userStatement.setString(1, username);
-            userStatement.setString(2, PasswordHasher.getHashPassword(password));
             ResultSet userResultSet = userStatement.executeQuery();
 
+
             if (userResultSet.next()) {
+                if (!PasswordHasher.isTruePassword(password, userResultSet.getString("password_hash"))){
+                    return Optional.empty();
+                }
                 List<String> chats = new ArrayList<>();
                 userChatsStatement.setString(1, userResultSet.getString(1));
                 ResultSet userChatsResultSet = userChatsStatement.executeQuery();
@@ -69,8 +72,24 @@ public class UserDAOImpl implements UserDAO {
         return Optional.empty();
     }
 
+    public boolean hasUsername(String username){
+        String userQuery = "SELECT * FROM users WHERE username = ? LIMIT 1";
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement userStatement = connection.prepareStatement(userQuery)) {
+
+            userStatement.setString(1, username);
+            ResultSet userResultSet = userStatement.executeQuery();
+
+            return userResultSet.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     @Override
-    public void addUser(User user, String password) {
+    public boolean addUser(User user, String password) {
         String userQuery = "INSERT INTO users (id_user, username, password_hash) VALUES (?,?,?)";
 
         try (Connection connection = DatabaseConnection.getConnection();
@@ -84,13 +103,14 @@ public class UserDAOImpl implements UserDAO {
             for (String chatId : user.getIdChats()) {
                 addUserChat(user.getId(), chatId);
             }
-
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
-    public void addUserChat(String userId, String chatId) {
+    public boolean addUserChat(String userId, String chatId) {
         String userChatQuery = "INSERT INTO user_chats (id_user, id_chat) VALUES (?, ?)";
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement userChatStatement = connection.prepareStatement(userChatQuery)) {
@@ -98,13 +118,14 @@ public class UserDAOImpl implements UserDAO {
             userChatStatement.setString(1, userId);
             userChatStatement.setString(2, chatId);
             userChatStatement.executeUpdate();
-
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
-    public void replaceUsername(String userId, String newUsername){
+    public boolean replaceUsername(String userId, String newUsername){
         String userQuery = "UPDATE users SET username=? WHERE id_user=?";
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement userStatement = connection.prepareStatement(userQuery)) {
@@ -112,10 +133,10 @@ public class UserDAOImpl implements UserDAO {
             userStatement.setString(1, newUsername);
             userStatement.setString(2, userId);
             userStatement.executeUpdate();
-
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        return false;
     }
 }

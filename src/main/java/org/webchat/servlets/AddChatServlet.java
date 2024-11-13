@@ -1,11 +1,9 @@
 package org.webchat.servlets;
 
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.webchat.domain.User;
 import org.webchat.repository.UsersRepoImpl;
 
 import java.io.IOException;

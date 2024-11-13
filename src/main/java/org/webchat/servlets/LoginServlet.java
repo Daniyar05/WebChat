@@ -34,7 +34,7 @@ public class LoginServlet extends HttpServlet {
             request.getSession().setAttribute("username", user.get().getUsername());
 
             response.sendRedirect(request.getContextPath() + "/profile");
-            log.info("User logging");
+            log.info("User-> id={} auth", user.get().getId());
             return;
         }
         response.sendRedirect("login.jsp?error=true");

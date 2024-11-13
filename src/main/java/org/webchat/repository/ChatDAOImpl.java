@@ -49,7 +49,7 @@ public class ChatDAOImpl implements ChatDAO {
     }
 
     @Override
-    public void addChat(Chat chat) {
+    public boolean addChat(Chat chat) {
         String chatQuery = "INSERT INTO chats (id_chat, name) VALUES (?, ?)";
 
         try (Connection connection = DatabaseConnection.getConnection();
@@ -57,19 +57,19 @@ public class ChatDAOImpl implements ChatDAO {
 
             chatStatement.setString(1, chat.getIdChat());
             chatStatement.setString(2, chat.getName());
-
             chatStatement.executeUpdate();
 
             for (Message message : chat.getHistory()) {
                 addMessage(chat.getIdChat(), message);
             }
-
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
-    public void addMessage(String idChat, Message message) {
+    public boolean addMessage(String idChat, Message message) {
         String messageQuery = "INSERT INTO messages (id_chat, id_from, content, date) VALUES (?, ?, ?, ?)";
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement messageStatement = connection.prepareStatement(messageQuery)) {
@@ -79,13 +79,14 @@ public class ChatDAOImpl implements ChatDAO {
             messageStatement.setString(3, message.content());
             messageStatement.setTimestamp(4, new Timestamp(message.getData().getTime()));
             messageStatement.executeUpdate();
-
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
-    public void renameChat(String idChat, String newName){
+    public boolean renameChat(String idChat, String newName){
         String userQuery = "UPDATE chats SET name=? WHERE id_chat=?";
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement userStatement = connection.prepareStatement(userQuery)) {
@@ -93,15 +94,29 @@ public class ChatDAOImpl implements ChatDAO {
             userStatement.setString(1, newName);
             userStatement.setString(2, idChat);
             userStatement.executeUpdate();
-
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
 
+    public boolean deleteUserComparisonChat(String idChat){
+        String chatQuery = "DELETE FROM user_chats WHERE id_chat=?";
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement messageStatement = connection.prepareStatement(chatQuery)) {
 
-    public void deleteChat(String idChat){
+            messageStatement.setString(1, idChat);
+            messageStatement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean deleteChat(String idChat){
         String chatQuery = "DELETE FROM chats WHERE id_chat=?";
 
         try (Connection connection = DatabaseConnection.getConnection();
@@ -110,22 +125,24 @@ public class ChatDAOImpl implements ChatDAO {
 
             messageStatement.setString(1, idChat);
             messageStatement.executeUpdate();
-
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
-    public void deleteMessages(String idChat){
+    public boolean deleteMessages(String idChat){
         String messageQuery = "DELETE FROM messages WHERE id_chat=?";
 
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement messageStatement = connection.prepareStatement(messageQuery)) {
             messageStatement.setString(1, idChat);
             messageStatement.executeUpdate();
-
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return false;
     }
 }

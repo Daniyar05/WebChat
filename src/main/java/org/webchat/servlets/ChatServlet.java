@@ -61,4 +61,15 @@ public class ChatServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/chat?ID_CHAT=" + request.getParameter("ID_CHAT"));
         }
     }
+
+
+    @Override
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String idChat = request.getParameter("chatId");
+        ChatRepoImpl.deleteChat(idChat);
+        response.sendRedirect(request.getContextPath()+"/list-chats");
+    }
+
+
+
 }

@@ -3,6 +3,7 @@
 
 <html>
 <head>
+    <script src="<c:url value="/functions.js"/>"></script>
     <title>Ваши чаты</title>
 </head>
 <body>
@@ -12,10 +13,9 @@
     <ul>
         <c:forEach var="chat" items="${chats}" >
             <li><a href="chat?ID_CHAT=${ chat.getIdChat() }">${chat.getName()}</a></li>
-            <form id="delete-chat" method="post" action="delete-chat">
-                <input type="hidden" name="chatId" value="${chat.getIdChat()}"/>
-                <button type="submit">Delete Chat</button>
-            </form>
+
+            <c:set var="chatId" value="${chat.idChat}"/>
+            <button onclick="deleteChat('${chatId}', '<c:url value="/"/>')">Delete Chat</button>
 
         </c:forEach>
     </ul>
@@ -25,7 +25,10 @@
     <p>У вас нет доступных чатов.</p>
 </c:if>
 
-<li><a href="create-chat?ID_USER=${user_id}">Создать чат</a></li>
+<c:set var="chatId" value="${chat.idChat}"/>
+<form id="list-chats" method="post" action="list-chats">
+    <button type="submit">Создать чат</button>
+</form>
 <li><a href="add-chat?ID_USER=${user_id}">Добавить чат</a></li>
 <div class=“button-container”>
     <button onclick="window.location.href='profile';">Личный кабинет</button>

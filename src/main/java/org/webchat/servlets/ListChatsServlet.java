@@ -5,7 +5,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.webchat.domain.Chat;
 import org.webchat.domain.User;
+import org.webchat.repository.ChatRepoImpl;
 import org.webchat.repository.UsersRepoImpl;
 import org.webchat.utils.ChatsLaunch;
 
@@ -31,5 +33,13 @@ public class ListChatsServlet extends HttpServlet {
             return;
         }
         response.sendRedirect(request.getContextPath() + "/login");
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Chat newChat = new Chat();
+        ChatRepoImpl.addChat(newChat);
+        UsersRepoImpl.addUserChat((String) request.getSession().getAttribute("userId"),newChat.getIdChat());
+        response.sendRedirect(request.getContextPath() + "/list-chats");
     }
 }

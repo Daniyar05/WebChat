@@ -13,7 +13,9 @@ public class UsersRepoImpl {
     public static Optional<User> getUser(String username, String password) {
         return USER_DAO.getUser(username, password);
     }
-
+    public static boolean hasUsername(String username) {
+        return USER_DAO.hasUsername(username);
+    }
     public static void addUser(User user, String password) {
         USER_DAO.addUser(user, password);
     }

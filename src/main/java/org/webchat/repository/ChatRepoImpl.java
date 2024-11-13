@@ -13,16 +13,17 @@ public class ChatRepoImpl {
         return chatDAO.getChat(idChat);
     }
 
-    public static void addChat(Chat chat) {
-        chatDAO.addChat(chat);
+    public static boolean addChat(Chat chat) {
+        return chatDAO.addChat(chat);
     }
-    public static void addMessage(String idChat, Message message){
-        chatDAO.addMessage(idChat, message);
+    public static boolean addMessage(String idChat, Message message){
+        return chatDAO.addMessage(idChat, message);
     }
-    public static void renameChat(String idChat, String newName){
-        chatDAO.renameChat(idChat, newName);
+    public static boolean renameChat(String idChat, String newName){
+        return chatDAO.renameChat(idChat, newName);
     }
-    public static void deleteChat(String idChat){
-        chatDAO.deleteChat(idChat);
+    public static boolean deleteChat(String idChat){
+        return (chatDAO.deleteUserComparisonChat(idChat) || chatDAO.deleteChat(idChat));
+
     }
 }
