@@ -16,11 +16,11 @@ public class UserManager {
     private final Random random = new Random();
 
     public boolean addUser(String userId, String mood) {
-        return userMoodsRepo.addUser(userId, mood);
+        return userMoodsRepo.addUserMood(userId, mood);
     }
 
-    public String getRandomUserBasedOnMood(String desiredMood) {
-        List<String> filteredUsers = userMoodsRepo.getUsersId(desiredMood);
+    public String getRandomUserBasedOnMood(String desiredMood, String userById) {
+        List<String> filteredUsers = userMoodsRepo.getUsersId(desiredMood, userById);
         if(filteredUsers == null || filteredUsers.isEmpty()){
             return null;
         }

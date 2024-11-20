@@ -1,6 +1,5 @@
 package org.webchat.repository.Impl;
 
-import com.sun.jna.platform.win32.DBT;
 import org.webchat.db.DatabaseConnection;
 
 import java.sql.Connection;
@@ -16,13 +15,14 @@ public class UserMoodsRepoImpl {
         this.databaseConnection = databaseConnection;
     }
 
-    public List<String> getUsersId(String mood) {
-        String userQuery = "SELECT id_user FROM user_moods WHERE mood = ?";
+    public List<String> getUsersId(String mood, String userById) {
+        String userQuery = "SELECT id_user FROM user_moods WHERE mood = ? AND id_user!=?";
         List<String> list = new ArrayList<>();
         try (Connection connection = databaseConnection.getConnection();
              PreparedStatement userStatement = connection.prepareStatement(userQuery)) {
 
             userStatement.setString(1, mood);
+            userStatement.setString(2, userById);
             ResultSet resultSet = userStatement.executeQuery();
             while (resultSet.next()) {
                 list.add(resultSet.getString("id_user"));
@@ -35,9 +35,9 @@ public class UserMoodsRepoImpl {
         return null;
     }
 
-    public boolean addUser(String userId, String mood) {
+    public boolean addUserMood(String userId, String mood) {
         String userQuery = "INSERT INTO user_moods (id_user, mood) VALUES (?,?)";
-
+        removeUser(userId);
         try (Connection connection = databaseConnection.getConnection();
              PreparedStatement userStatement = connection.prepareStatement(userQuery)) {
 
@@ -59,6 +59,21 @@ public class UserMoodsRepoImpl {
              PreparedStatement userStatement = connection.prepareStatement(userQuery)) {
 
             userStatement.setString(1, userId);
+            userStatement.executeUpdate();
+
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    private boolean removeById(String id){
+        String userQuery = "DELETE FROM user_moods WHERE id=?";
+
+        try (Connection connection = databaseConnection.getConnection();
+             PreparedStatement userStatement = connection.prepareStatement(userQuery)) {
+
+            userStatement.setString(1, id);
             userStatement.executeUpdate();
 
             return true;
