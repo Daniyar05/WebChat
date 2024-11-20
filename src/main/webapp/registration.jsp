@@ -15,5 +15,9 @@
 
     <input type="submit" value="Зарегистрироваться">
 </form>
+
+<div class=“button-container”>
+    <button onclick="window.location.href='greeting.jsp';">Переход к стартовому меню</button>
+</div>
 </body>
 </html>

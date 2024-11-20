@@ -11,5 +11,8 @@
     <input type="password" name="password" id="password" required/><br/>
     <input type="submit" value="Login"/>
 </form>
+<div class=“button-container”>
+    <button onclick="window.location.href='greeting.jsp';">Переход к стартовому меню</button>
+</div>
 </body>
 </html>

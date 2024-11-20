@@ -69,6 +69,7 @@ public class ChatDAOImpl implements ChatDAO {
         return false;
     }
 
+    @Override
     public boolean addMessage(String idChat, Message message) {
         String messageQuery = "INSERT INTO messages (id_chat, id_from, content, date) VALUES (?, ?, ?, ?)";
         try (Connection connection = DatabaseConnection.getConnection();
@@ -85,7 +86,7 @@ public class ChatDAOImpl implements ChatDAO {
         }
         return false;
     }
-
+    @Override
     public boolean renameChat(String idChat, String newName){
         String userQuery = "UPDATE chats SET name=? WHERE id_chat=?";
         try (Connection connection = DatabaseConnection.getConnection();
@@ -115,7 +116,7 @@ public class ChatDAOImpl implements ChatDAO {
         }
         return false;
     }
-
+    @Override
     public boolean deleteChat(String idChat){
         String chatQuery = "DELETE FROM chats WHERE id_chat=?";
 
@@ -131,7 +132,7 @@ public class ChatDAOImpl implements ChatDAO {
         }
         return false;
     }
-
+    @Override
     public boolean deleteMessages(String idChat){
         String messageQuery = "DELETE FROM messages WHERE id_chat=?";
 

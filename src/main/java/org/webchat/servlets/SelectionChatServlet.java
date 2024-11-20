@@ -24,6 +24,7 @@ public class SelectionChatServlet extends HttpServlet {
         String mood = request.getParameter("mood");
         String suitableUserId = getSuitableUser(mood);
         System.out.println(suitableUserId);
+        addSuitableUser((String) request.getSession().getAttribute("userId"), mood);
         if (suitableUserId == null){
             request.setAttribute("notFoundException", true);
             request.getRequestDispatcher("/select-chat.jsp?").forward(request, response);
@@ -34,10 +35,11 @@ public class SelectionChatServlet extends HttpServlet {
     }
 
     private String getSuitableUser(String mood) {
-        User user = UserManager.getRandomUserBasedOnMood(mood);
-        if (user == null) {
-            return null;
-        }
-        return user.getId();
+        return UserManager.getRandomUserBasedOnMood(mood);
+    }
+
+
+    private boolean addSuitableUser(String userId, String mood){
+        return UserManager.addUser(userId, mood);
     }
 }

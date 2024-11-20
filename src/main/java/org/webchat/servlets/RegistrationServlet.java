@@ -11,6 +11,8 @@ import org.webchat.repository.UsersRepoImpl;
 import java.io.IOException;
 import java.util.UUID;
 
+import static org.webchat.usecase.Root.log;
+
 @WebServlet(name = "RegistrationServlet", value = "/registration")
 public class RegistrationServlet extends HttpServlet {
     @Override
@@ -25,12 +27,12 @@ public class RegistrationServlet extends HttpServlet {
         String password = request.getParameter("password");
         if (!UsersRepoImpl.hasUsername(username)){
             User newUser = new User(UUID.randomUUID().toString(), username);
-
             UsersRepoImpl.addUser(newUser, password);
+            request.getSession().setAttribute("userId", newUser.getId());
+            request.getSession().setAttribute("username", newUser.getUsername());
 
-            response.setContentType("text/html");
-            response.getWriter().println("<h2>Регистрация успешна!</h2>");
-            response.getWriter().println("<p>Username: " + username + "</p>");
+            response.sendRedirect(request.getContextPath() + "/profile");
+            log.info("User-> id={} auth", newUser.getId());
             return;
         }
         request.getRequestDispatcher("/registration.jsp").forward(request, response);

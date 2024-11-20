@@ -9,13 +9,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.webchat.domain.User;
 import org.webchat.repository.UsersRepoImpl;
-
 import java.io.IOException;
 import java.util.Optional;
 
+import static org.webchat.usecase.Root.log;
+
 @WebServlet(name = "LoginServlet", value = "/login")
 public class LoginServlet extends HttpServlet {
-    private static final Logger log = LoggerFactory.getLogger(LoginServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
