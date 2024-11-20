@@ -10,11 +10,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.webchat.domain.Chat;
 import org.webchat.domain.Message;
 import org.webchat.domain.User;
-import org.webchat.repository.ChatRepoImpl;
-import org.webchat.repository.UsersRepoImpl;
+import org.webchat.usecase.Root;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Optional;
 
 @WebServlet(name = "ChatServlet", value = "/chat")
@@ -24,7 +22,7 @@ public class ChatServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
         String idChat = request.getParameter("ID_CHAT");
-        Optional<Chat> chatOptional= ChatRepoImpl.getChat(idChat);
+        Optional<Chat> chatOptional= Root.chatRepo.getChat(idChat);
 
         if (chatOptional.isEmpty()){
             return;
@@ -36,7 +34,7 @@ public class ChatServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/profile");
             return;
         }
-        Optional<User> thisUser = UsersRepoImpl.getUser(userId);
+        Optional<User> thisUser = Root.usersRepo.getUser(userId);
         if (thisUser.isPresent() && thisUser.get().getIdChats().contains(idChat)){
             request.setAttribute("chat", thisChat);
             request.setAttribute("messagesJson", new Gson().toJson(thisChat.getHistory()));
@@ -51,13 +49,13 @@ public class ChatServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String authorId = ((String) request.getSession().getAttribute("userId"));
-        Optional<User> user = UsersRepoImpl.getUser(authorId);
+        Optional<User> user = Root.usersRepo.getUser(authorId);
 
         String content = request.getParameter("content");
 
         if (authorId != null && content != null && !content.trim().isEmpty() && user.isPresent()) {
             Message newMessage = new Message(user.get(), content);
-            ChatRepoImpl.addMessage(request.getParameter("ID_CHAT"), newMessage);
+            Root.chatRepo.addMessage(request.getParameter("ID_CHAT"), newMessage);
             response.sendRedirect(request.getContextPath() + "/chat?ID_CHAT=" + request.getParameter("ID_CHAT"));
         }
     }
@@ -66,10 +64,7 @@ public class ChatServlet extends HttpServlet {
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String idChat = request.getParameter("chatId");
-        ChatRepoImpl.deleteChat(idChat);
+        Root.chatRepo.deleteChat(idChat);
         response.sendRedirect(request.getContextPath()+"/list-chats");
     }
-
-
-
 }

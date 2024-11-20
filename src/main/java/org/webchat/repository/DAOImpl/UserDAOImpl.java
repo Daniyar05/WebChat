@@ -1,8 +1,10 @@
-package org.webchat.repository;
+package org.webchat.repository.DAOImpl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.webchat.domain.User;
+import org.webchat.db.DatabaseConnection;
+import org.webchat.repository.UserDAO;
 import org.webchat.utils.PasswordHasher;
 
 import java.sql.*;
@@ -13,13 +15,17 @@ import java.util.Optional;
 public class UserDAOImpl implements UserDAO {
 
     private static final Logger log = LoggerFactory.getLogger(UserDAOImpl.class);
+    DatabaseConnection databaseConnection;
 
+    public UserDAOImpl(DatabaseConnection databaseConnection) {
+        this.databaseConnection = databaseConnection;
+    }
     @Override
     public Optional<User> getUser(String idUser) {
         String userQuery = "SELECT * FROM users WHERE id_user = ?";
         String userChatsQuery = "SELECT id_chat FROM user_chats WHERE id_user = ?";
 
-        try (Connection connection = DatabaseConnection.getConnection();
+        try (Connection connection = databaseConnection.getConnection();
              PreparedStatement userStatement = connection.prepareStatement(userQuery);
              PreparedStatement userChatsStatement = connection.prepareStatement(userChatsQuery)) {
 
@@ -44,7 +50,7 @@ public class UserDAOImpl implements UserDAO {
     public Optional<User> getUser(String username, String password) {
         String userQuery = "SELECT * FROM users WHERE username = ?";
         String userChatsQuery = "SELECT id_chat FROM user_chats WHERE id_user = ?";
-        try (Connection connection = DatabaseConnection.getConnection();
+        try (Connection connection = databaseConnection.getConnection();
             PreparedStatement userStatement = connection.prepareStatement(userQuery);
             PreparedStatement userChatsStatement = connection.prepareStatement(userChatsQuery)) {
             userStatement.setString(1, username);
@@ -75,7 +81,7 @@ public class UserDAOImpl implements UserDAO {
     public boolean hasUsername(String username){
         String userQuery = "SELECT * FROM users WHERE username = ? LIMIT 1";
 
-        try (Connection connection = DatabaseConnection.getConnection();
+        try (Connection connection = databaseConnection.getConnection();
              PreparedStatement userStatement = connection.prepareStatement(userQuery)) {
 
             userStatement.setString(1, username);
@@ -92,7 +98,7 @@ public class UserDAOImpl implements UserDAO {
     public boolean addUser(User user, String password) {
         String userQuery = "INSERT INTO users (id_user, username, password_hash) VALUES (?,?,?)";
 
-        try (Connection connection = DatabaseConnection.getConnection();
+        try (Connection connection = databaseConnection.getConnection();
              PreparedStatement userStatement = connection.prepareStatement(userQuery)) {
 
             userStatement.setString(1, user.getId());
@@ -112,7 +118,7 @@ public class UserDAOImpl implements UserDAO {
 
     public boolean addUserChat(String userId, String chatId) {
         String userChatQuery = "INSERT INTO user_chats (id_user, id_chat) VALUES (?, ?)";
-        try (Connection connection = DatabaseConnection.getConnection();
+        try (Connection connection = databaseConnection.getConnection();
              PreparedStatement userChatStatement = connection.prepareStatement(userChatQuery)) {
 
             userChatStatement.setString(1, userId);
@@ -127,7 +133,7 @@ public class UserDAOImpl implements UserDAO {
 
     public boolean replaceUsername(String userId, String newUsername){
         String userQuery = "UPDATE users SET username=? WHERE id_user=?";
-        try (Connection connection = DatabaseConnection.getConnection();
+        try (Connection connection = databaseConnection.getConnection();
              PreparedStatement userStatement = connection.prepareStatement(userQuery)) {
 
             userStatement.setString(1, newUsername);

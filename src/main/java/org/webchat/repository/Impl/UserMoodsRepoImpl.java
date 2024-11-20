@@ -1,7 +1,7 @@
-package org.webchat.repository;
+package org.webchat.repository.Impl;
 
-import org.webchat.domain.User;
-import org.webchat.utils.PasswordHasher;
+import com.sun.jna.platform.win32.DBT;
+import org.webchat.db.DatabaseConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,13 +9,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
-public class UserMoodsRepo {
+public class UserMoodsRepoImpl {
+    DatabaseConnection databaseConnection;
+    public UserMoodsRepoImpl(DatabaseConnection databaseConnection) {
+        this.databaseConnection = databaseConnection;
+    }
+
     public List<String> getUsersId(String mood) {
         String userQuery = "SELECT id_user FROM user_moods WHERE mood = ?";
         List<String> list = new ArrayList<>();
-        try (Connection connection = DatabaseConnection.getConnection();
+        try (Connection connection = databaseConnection.getConnection();
              PreparedStatement userStatement = connection.prepareStatement(userQuery)) {
 
             userStatement.setString(1, mood);
@@ -34,7 +38,7 @@ public class UserMoodsRepo {
     public boolean addUser(String userId, String mood) {
         String userQuery = "INSERT INTO user_moods (id_user, mood) VALUES (?,?)";
 
-        try (Connection connection = DatabaseConnection.getConnection();
+        try (Connection connection = databaseConnection.getConnection();
              PreparedStatement userStatement = connection.prepareStatement(userQuery)) {
 
             userStatement.setString(1, userId);
@@ -51,7 +55,7 @@ public class UserMoodsRepo {
     public boolean removeUser(String userId){
         String userQuery = "DELETE FROM user_moods WHERE id_user=?";
 
-        try (Connection connection = DatabaseConnection.getConnection();
+        try (Connection connection = databaseConnection.getConnection();
              PreparedStatement userStatement = connection.prepareStatement(userQuery)) {
 
             userStatement.setString(1, userId);
@@ -67,7 +71,7 @@ public class UserMoodsRepo {
     public boolean hasMoodsForUser(String userId){
         String userQuery = "SELECT * FROM user_moods WHERE id_user=?";
 
-        try (Connection connection = DatabaseConnection.getConnection();
+        try (Connection connection = databaseConnection.getConnection();
              PreparedStatement userStatement = connection.prepareStatement(userQuery)) {
 
             userStatement.setString(1, userId);

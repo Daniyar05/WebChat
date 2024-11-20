@@ -5,12 +5,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.webchat.domain.User;
 import org.webchat.usecase.CreateChatForTwoUser;
-import org.webchat.usecase.UserManager;
+import org.webchat.usecase.Root;
 
 import java.io.IOException;
-import java.util.Objects;
 
 @WebServlet(name = "SelectionChatServlet", value = "/select-chat")
 public class SelectionChatServlet extends HttpServlet {
@@ -35,11 +33,11 @@ public class SelectionChatServlet extends HttpServlet {
     }
 
     private String getSuitableUser(String mood) {
-        return UserManager.getRandomUserBasedOnMood(mood);
+        return Root.userManager.getRandomUserBasedOnMood(mood);
     }
 
 
     private boolean addSuitableUser(String userId, String mood){
-        return UserManager.addUser(userId, mood);
+        return Root.userManager.addUser(userId, mood);
     }
 }

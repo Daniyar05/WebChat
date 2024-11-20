@@ -7,9 +7,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.webchat.domain.Chat;
 import org.webchat.domain.User;
-import org.webchat.repository.ChatRepoImpl;
-import org.webchat.repository.UsersRepoImpl;
-import org.webchat.utils.ChatsLaunch;
+import org.webchat.repository.Impl.ChatRepoImpl;
+import org.webchat.repository.Impl.UsersRepoImpl;
+import org.webchat.usecase.ChatsLaunch;
+import org.webchat.usecase.Root;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -21,7 +22,7 @@ public class ListChatsServlet extends HttpServlet {
         response.setContentType("text/html");
         String thisUserId = (String) request.getSession().getAttribute("userId");
 
-        Optional<User> optionalUser = UsersRepoImpl.getUser(thisUserId);
+        Optional<User> optionalUser = Root.usersRepo.getUser(thisUserId);
         if (optionalUser.isPresent()){
             User user = optionalUser.get();
             //TODO сделать токены для регистрации и логирование пользователя
@@ -38,8 +39,8 @@ public class ListChatsServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Chat newChat = new Chat();
-        ChatRepoImpl.addChat(newChat);
-        UsersRepoImpl.addUserChat((String) request.getSession().getAttribute("userId"),newChat.getIdChat());
+        Root.chatRepo.addChat(newChat);
+        Root.usersRepo.addUserChat((String) request.getSession().getAttribute("userId"),newChat.getIdChat());
         response.sendRedirect(request.getContextPath() + "/list-chats");
     }
 }

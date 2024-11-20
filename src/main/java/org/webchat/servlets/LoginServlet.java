@@ -5,10 +5,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.webchat.domain.User;
-import org.webchat.repository.UsersRepoImpl;
+import org.webchat.usecase.Root;
+
 import java.io.IOException;
 import java.util.Optional;
 
@@ -27,7 +26,7 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        Optional<User> user = UsersRepoImpl.getUser(username,password);
+        Optional<User> user = Root.usersRepo.getUser(username,password);
         if (user.isPresent()) {
 
             request.getSession().setAttribute("userId", user.get().getId());

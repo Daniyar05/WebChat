@@ -1,8 +1,12 @@
-package org.webchat.repository;
+package org.webchat.repository.DAOImpl;
 
 import org.webchat.domain.Chat;
 import org.webchat.domain.Message;
 import org.webchat.domain.User;
+import org.webchat.repository.ChatDAO;
+import org.webchat.db.DatabaseConnection;
+import org.webchat.repository.Impl.UsersRepoImpl;
+import org.webchat.usecase.Root;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,13 +14,18 @@ import java.util.List;
 import java.util.Optional;
 
 public class ChatDAOImpl implements ChatDAO {
+    DatabaseConnection databaseConnection;
+
+    public ChatDAOImpl(DatabaseConnection databaseConnection) {
+        this.databaseConnection = databaseConnection;
+    }
 
     @Override
     public Optional<Chat> getChat(String idChat) {
         String chatQuery = "SELECT * FROM chats WHERE id_chat = ?";
         String messagesQuery = "SELECT * FROM messages WHERE id_chat = ? ORDER BY date";
 
-        try (Connection connection = DatabaseConnection.getConnection();
+        try (Connection connection = databaseConnection.getConnection();
              PreparedStatement chatStatement = connection.prepareStatement(chatQuery);
              PreparedStatement messagesStatement = connection.prepareStatement(messagesQuery)) {
 
@@ -29,7 +38,7 @@ public class ChatDAOImpl implements ChatDAO {
                 ResultSet messagesResultSet = messagesStatement.executeQuery();
                 Optional<User> tempUser;
                 while (messagesResultSet.next()) {
-                    tempUser = UsersRepoImpl.getUser(messagesResultSet.getString("id_from"));
+                    tempUser = Root.usersRepo.getUser(messagesResultSet.getString("id_from"));
                     if (tempUser.isPresent()) {
                         Message message = new Message(
                                 messagesResultSet.getTimestamp("date"),
@@ -52,7 +61,7 @@ public class ChatDAOImpl implements ChatDAO {
     public boolean addChat(Chat chat) {
         String chatQuery = "INSERT INTO chats (id_chat, name) VALUES (?, ?)";
 
-        try (Connection connection = DatabaseConnection.getConnection();
+        try (Connection connection = databaseConnection.getConnection();
             PreparedStatement chatStatement = connection.prepareStatement(chatQuery)) {
 
             chatStatement.setString(1, chat.getIdChat());
@@ -72,7 +81,7 @@ public class ChatDAOImpl implements ChatDAO {
     @Override
     public boolean addMessage(String idChat, Message message) {
         String messageQuery = "INSERT INTO messages (id_chat, id_from, content, date) VALUES (?, ?, ?, ?)";
-        try (Connection connection = DatabaseConnection.getConnection();
+        try (Connection connection = databaseConnection.getConnection();
              PreparedStatement messageStatement = connection.prepareStatement(messageQuery)) {
 
             messageStatement.setString(1, idChat);
@@ -89,7 +98,7 @@ public class ChatDAOImpl implements ChatDAO {
     @Override
     public boolean renameChat(String idChat, String newName){
         String userQuery = "UPDATE chats SET name=? WHERE id_chat=?";
-        try (Connection connection = DatabaseConnection.getConnection();
+        try (Connection connection = databaseConnection.getConnection();
              PreparedStatement userStatement = connection.prepareStatement(userQuery)) {
 
             userStatement.setString(1, newName);
@@ -105,7 +114,7 @@ public class ChatDAOImpl implements ChatDAO {
 
     public boolean deleteUserComparisonChat(String idChat){
         String chatQuery = "DELETE FROM user_chats WHERE id_chat=?";
-        try (Connection connection = DatabaseConnection.getConnection();
+        try (Connection connection = databaseConnection.getConnection();
              PreparedStatement messageStatement = connection.prepareStatement(chatQuery)) {
 
             messageStatement.setString(1, idChat);
@@ -120,7 +129,7 @@ public class ChatDAOImpl implements ChatDAO {
     public boolean deleteChat(String idChat){
         String chatQuery = "DELETE FROM chats WHERE id_chat=?";
 
-        try (Connection connection = DatabaseConnection.getConnection();
+        try (Connection connection = databaseConnection.getConnection();
             PreparedStatement messageStatement = connection.prepareStatement(chatQuery)) {
             deleteMessages(idChat);
 
@@ -136,7 +145,7 @@ public class ChatDAOImpl implements ChatDAO {
     public boolean deleteMessages(String idChat){
         String messageQuery = "DELETE FROM messages WHERE id_chat=?";
 
-        try (Connection connection = DatabaseConnection.getConnection();
+        try (Connection connection = databaseConnection.getConnection();
              PreparedStatement messageStatement = connection.prepareStatement(messageQuery)) {
             messageStatement.setString(1, idChat);
             messageStatement.executeUpdate();

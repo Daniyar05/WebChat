@@ -1,7 +1,6 @@
-package org.webchat.utils;
+package org.webchat.usecase;
 
 import org.webchat.domain.Chat;
-import org.webchat.repository.ChatRepoImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +11,7 @@ public class ChatsLaunch {
         List<Chat> listChat = new ArrayList<>();
         Optional<Chat> temp;
         for (String s : listIdChat) {
-            temp = ChatRepoImpl.getChat(s);
+            temp = Root.chatRepo.getChat(s);
             temp.ifPresent(listChat::add);
         }
         return listChat;

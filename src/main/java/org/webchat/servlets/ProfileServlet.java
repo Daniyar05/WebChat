@@ -6,7 +6,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import org.webchat.repository.UsersRepoImpl;
+import org.webchat.repository.Impl.UsersRepoImpl;
+import org.webchat.usecase.Root;
 
 import java.io.IOException;
 
@@ -25,7 +26,7 @@ public class ProfileServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String newUsername = request.getParameter("name");
         String userId = (String) request.getSession().getAttribute("userId");
-        UsersRepoImpl.replaceUsername(userId, newUsername);
+        Root.usersRepo.replaceUsername(userId, newUsername);
         request.getSession().setAttribute("username", newUsername);
         request.getRequestDispatcher("/profile.jsp").forward(request, response);
     }

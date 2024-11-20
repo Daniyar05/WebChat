@@ -5,8 +5,6 @@ import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.webchat.domain.User;
-import org.webchat.repository.UsersRepoImpl;
 
 import java.io.IOException;
 import java.util.List;
