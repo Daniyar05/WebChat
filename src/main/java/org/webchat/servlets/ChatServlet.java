@@ -20,29 +20,37 @@ import java.util.Optional;
 public class ChatServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html");
+        boolean ajax = "AjaxRequest".equals(request.getHeader("Type-Request"));
         String idChat = request.getParameter("ID_CHAT");
         Optional<Chat> chatOptional= Root.chatRepo.getChat(idChat);
 
-        if (chatOptional.isEmpty()){
+        if (chatOptional.isEmpty()) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
+        if (ajax){
+            Chat chat = chatOptional.get();
+            response.setContentType("application/json");
+            response.getWriter().write(new Gson().toJson(chat.getHistory()));
 
-        Chat thisChat = chatOptional.get();
-        String userId = (String) request.getSession().getAttribute("userId");
-        if (userId == null) {
-            response.sendRedirect(request.getContextPath() + "/profile");
-            return;
-        }
-        Optional<User> thisUser = Root.usersRepo.getUser(userId);
-        if (thisUser.isPresent() && thisUser.get().getIdChats().contains(idChat)){
-            request.setAttribute("chat", thisChat);
-            request.setAttribute("messagesJson", new Gson().toJson(thisChat.getHistory()));
-            request.getRequestDispatcher("/chat.jsp").forward(request, response);
-            return;
-        }
-        response.sendRedirect(request.getContextPath() + "/list-chats");
+        } else {
+            response.setContentType("text/html");
 
+            Chat thisChat = chatOptional.get();
+            String userId = (String) request.getSession().getAttribute("userId");
+            if (userId == null) {
+                response.sendRedirect(request.getContextPath() + "/profile");
+                return;
+            }
+            Optional<User> thisUser = Root.usersRepo.getUser(userId);
+            if (thisUser.isPresent() && thisUser.get().getIdChats().contains(idChat)) {
+                request.setAttribute("chat", thisChat);
+                request.setAttribute("messagesJson", new Gson().toJson(thisChat.getHistory()));
+                request.getRequestDispatcher("/chat.jsp").forward(request, response);
+                return;
+            }
+            response.sendRedirect(request.getContextPath() + "/list-chats");
+        }
     }
 
 

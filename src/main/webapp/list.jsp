@@ -3,7 +3,7 @@
 
 <html>
 <head>
-    <script src="<c:url value="/functions.js"/>"></script>
+    <script src="<c:url value="/JavaScript/functions.js"/>"></script>
     <title>Ваши чаты</title>
 </head>
 <body>

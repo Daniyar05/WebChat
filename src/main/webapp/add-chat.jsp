@@ -5,6 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Добавление Чата</title>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/chat.css">
+
 </head>
 <body>
 

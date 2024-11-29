@@ -3,34 +3,10 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <html>
 <head>
-    <script src="<c:url value="/functions.js"/>"></script>
-
+    <script src="<c:url value="/JavaScript/functions.js"/>"></script>
     <title>Чат: ${chat.getName()} </title>
-    <style>
-        #chat-box {
-            border: 1px solid #ccc;
-            padding: 10px;
-            width: 300px;
-            height: 300px;
-            overflow-y: scroll;
-            resize: both;
-        }
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/chat.css">
 
-        #message-form {
-            margin-top: 10px;
-        }
-
-        #message-input {
-            width: calc(100% - 20px);
-            padding: 10px;
-            resize: none;
-            overflow: hidden;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 16px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-    </style>
 </head>
 <body>
 
@@ -40,16 +16,16 @@
     <br>
     <input type="submit" value="Update">
     <input type="hidden" name="chatId" value="${chat.idChat}"/>
-
 </form>
 
-<div id="chat-box">
+<div id="chat-box" data-chat-id="${chat.idChat}" context='<c:url value="/"/>'>
     <c:forEach var="message" items="${chat.getHistory()}">
         <div>
             <strong>${message.userFrom().getUsername()}</strong>: ${message.content()}
         </div>
     </c:forEach>
 </div>
+
 <form id="message-form" method="post" action="chat?ID_CHAT=${chat.idChat}">
     <label>
         <textarea id="message-input" name="content" placeholder="Введите сообщение" required></textarea>
@@ -60,13 +36,7 @@
 
 <c:set var="chatId" value="${chat.idChat}"/>
 <button onclick="deleteChat('${chatId}', '<c:url value="/"/>')">Delete Chat</button>
-
-<%--<form id="delete-chat" method="post" action="delete-chat">--%>
-<%--    <input type="hidden" name="chatId" value="${chat.idChat}"/>--%>
-<%--    <button type="submit">Delete Chat</button>--%>
-<%--</form>--%>
-
-
+<script src="<c:url value='/JavaScript/chat-ajax.js'/>"></script>
 
 </body>
 </html>
