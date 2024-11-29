@@ -47,6 +47,7 @@ public class ChatServlet extends HttpServlet {
                 request.setAttribute("chat", thisChat);
                 request.setAttribute("messagesJson", new Gson().toJson(thisChat.getHistory()));
                 request.getRequestDispatcher("/chat.jsp").forward(request, response);
+
                 return;
             }
             response.sendRedirect(request.getContextPath() + "/list-chats");
