@@ -4,13 +4,11 @@ import lombok.*;
 
 @Data
 @Builder
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class SignInRequest {
+public class MessageDto {
 
-    private String username;
-
-    private String password;
+    private String content;
+    private String authorUsername;
 
 }

@@ -2,18 +2,14 @@ package org.webchat.dto;
 
 import lombok.*;
 
-import java.util.List;
-
 @Data
 @Builder
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDataResponse {
+public class UserDto {
 
     private String id;
-
     private String username;
-
 
 }

@@ -8,8 +8,6 @@ import java.sql.*;
 
 public class DatabaseConnection {
 
-
-
     public DataSource getDataSource() {
         return dataSource;
     }
@@ -23,7 +21,7 @@ public class DatabaseConnection {
 
     private DataSource getDatasource() {
         HikariConfig config = new HikariConfig();
-        Configuration configuration = Configuration.getConnection();
+        ConfigurationBD configuration = ConfigurationBD.getConnection();
         config.setUsername(configuration.getUSER());
         config.setPassword(configuration.getPASSWORD());
         config.setJdbcUrl(configuration.getURL());

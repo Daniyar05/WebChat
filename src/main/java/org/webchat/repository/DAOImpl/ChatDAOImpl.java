@@ -10,6 +10,7 @@ import org.webchat.usecase.Root;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,7 +51,6 @@ public class ChatDAOImpl implements ChatDAO {
                 }
                 return Optional.of(new Chat(idChat,chatResultSet.getString("name"), messages));
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }

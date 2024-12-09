@@ -1,10 +1,16 @@
 package org.webchat.domain;
 
+import lombok.Getter;
+import org.webchat.usecase.Root;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 
+@Getter
 public class Chat {
     private String name="Noname";
     final String idChat;
@@ -22,15 +28,6 @@ public class Chat {
         this.history = history;
     }
 
-
-    public List<Message> getHistory() {
-        return history;
-    }
-
-    public String getIdChat() {
-        return idChat;
-    }
-
     public void addMessage(Message message) {
         history.add(message);
     }
@@ -39,7 +36,10 @@ public class Chat {
         this.name = name;
     }
 
-    public String getName() {
-        return name;
+    public Optional<List<Message>> getHistory(int offset, int limit) {
+        return Optional.of(this.getHistory().stream()
+                .skip(offset)
+                .limit(limit)
+                .collect(Collectors.toList()));
     }
 }

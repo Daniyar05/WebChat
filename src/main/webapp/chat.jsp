@@ -17,13 +17,12 @@
     <input type="submit" value="Update">
     <input type="hidden" name="chatId" value="${chat.idChat}"/>
 </form>
-
-<div id="chat-box" data-chat-id="${chat.idChat}" context='<c:url value="/"/>'>
-    <c:forEach var="message" items="${chat.getHistory()}">
-        <div>
-            <strong>${message.userFrom().getUsername()}</strong>: ${message.content()}
-        </div>
-    </c:forEach>
+<div id="chat-box" data-chat-id="${chat.idChat}" context='<c:url value="/"/>' data-messages='${messagesJson}'>
+<%--    <c:forEach var="message" items="${chat.getHistory()}">--%>
+<%--        <div>--%>
+<%--            <strong>${message.userFrom().getUsername()}</strong>: ${message.content()}--%>
+<%--        </div>--%>
+<%--    </c:forEach>--%>
 </div>
 
 <form id="message-form" method="post" action="chat?ID_CHAT=${chat.idChat}">
@@ -36,6 +35,7 @@
 
 <c:set var="chatId" value="${chat.idChat}"/>
 <button onclick="deleteChat('${chatId}', '<c:url value="/"/>')">Delete Chat</button>
+<script src="<c:url value='/JavaScript/chat-function.js'/>"></script>
 <script src="<c:url value='/JavaScript/chat-ajax.js'/>"></script>
 
 </body>

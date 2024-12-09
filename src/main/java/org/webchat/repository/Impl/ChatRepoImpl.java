@@ -6,7 +6,9 @@ import org.webchat.domain.Chat;
 import org.webchat.domain.Message;
 import org.webchat.repository.DAOImpl.ChatDAOImpl;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class ChatRepoImpl {
     private final ChatDAOImpl chatDAO;
@@ -18,6 +20,15 @@ public class ChatRepoImpl {
     public Optional<Chat> getChat(String idChat) {
         return chatDAO.getChat(idChat);
     }
+
+    public Optional<List<Message>> getHistoryForChat(String chatId, int offset, int limit) {
+        Chat chat = getChat(chatId).orElseThrow(() -> new IllegalArgumentException("Chat not found"));
+        return Optional.of(chat.getHistory().stream()
+                .skip(offset)
+                .limit(limit)
+                .collect(Collectors.toList()));
+    }
+
 
     public boolean addChat(Chat chat) {
         return chatDAO.addChat(chat);

@@ -1,19 +1,23 @@
 package org.webchat.domain;
 
-import org.webchat.domain.Chat;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Builder
 public class User {
+    @Getter
     private final String id;
-    private List<String> chats;
+    private final List<String> chats;
+    @Getter
+    @Setter
     private String username;
+    @Setter
+    @Getter
     private String mood;
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
 
     public User(String id, String username) {
@@ -29,28 +33,12 @@ public class User {
     }
 
 
-    public String getUsername() {
-        return username;
-    }
-
-
     public void addChat(Chat chat) {
         chats.add(chat.getIdChat());
-    }
-
-    public String getId() {
-        return id;
     }
 
     public List<String> getIdChats() {
         return chats;
     }
 
-    public String getMood() {
-        return mood;
-    }
-
-    public void setMood(String mood) {
-        this.mood = mood;
-    }
 }
