@@ -1,7 +1,7 @@
 package org.webchat.domain;
 
 import lombok.Getter;
-import org.webchat.usecase.Root;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 @Getter
 public class Chat {
+    @Setter
     private String name="Noname";
     final String idChat;
     List<Message> history;
@@ -30,10 +31,6 @@ public class Chat {
 
     public void addMessage(Message message) {
         history.add(message);
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Optional<List<Message>> getHistory(int offset, int limit) {

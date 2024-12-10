@@ -7,7 +7,7 @@ import java.util.*;
 
 public class UserManager {
 
-    private UserMoodsRepoImpl userMoodsRepo;
+    private final UserMoodsRepoImpl userMoodsRepo;
 
     public UserManager(DatabaseConnection databaseConnection) {
         this.userMoodsRepo = new UserMoodsRepoImpl(databaseConnection);

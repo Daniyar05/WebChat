@@ -14,6 +14,6 @@ public class AuthResponse {
 
     private String statusDesc;
 
-    private User user;
+    private UserDto user;
 
 }

@@ -20,6 +20,34 @@ public class UserDAOImpl implements UserDAO {
     public UserDAOImpl(DatabaseConnection databaseConnection) {
         this.databaseConnection = databaseConnection;
     }
+
+    public Optional<User> getUserByUsername(String username){
+        String userQuery = "SELECT * FROM users WHERE username = ?";
+        String userChatsQuery = "SELECT id_chat FROM user_chats WHERE id_user = ?";
+
+        try (Connection connection = databaseConnection.getConnection();
+             PreparedStatement userStatement = connection.prepareStatement(userQuery);
+             PreparedStatement userChatsStatement = connection.prepareStatement(userChatsQuery)) {
+
+            userStatement.setString(1, username);
+            ResultSet userResultSet = userStatement.executeQuery();
+
+            if (userResultSet.next()) {
+                List<String> chats = new ArrayList<>();
+                userChatsStatement.setString(1, userResultSet.getString("id_user"));
+                ResultSet userChatsResultSet = userChatsStatement.executeQuery();
+                while (userChatsResultSet.next()) {
+                    chats.add(userChatsResultSet.getString("id_chat"));
+                }
+                return Optional.of(new User(userResultSet.getString("id_user"),userResultSet.getString("username"), chats));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return Optional.empty();
+    }
+
     @Override
     public Optional<User> getUser(String idUser) {
         String userQuery = "SELECT * FROM users WHERE id_user = ?";

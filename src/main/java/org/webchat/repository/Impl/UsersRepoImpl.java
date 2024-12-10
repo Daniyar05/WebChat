@@ -16,6 +16,9 @@ public class UsersRepoImpl {
     public Optional<User> getUser(String idUser) {
         return USER_DAO.getUser(idUser);
     }
+    public Optional<User> getUserByUsername(String idUser) {
+        return USER_DAO.getUserByUsername(idUser);
+    }
     public Optional<User> getUser(String username, String password) {
         return USER_DAO.getUser(username, password);
     }

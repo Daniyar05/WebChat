@@ -7,7 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.Data;
+
 import org.webchat.domain.Chat;
 import org.webchat.domain.Message;
 import org.webchat.domain.User;
@@ -31,8 +31,8 @@ public class ChatServlet extends HttpServlet {
         }
         Chat thisChat = chatOptional.get();
         System.out.println(ajax);
-        int offset = 0;
-        int limit = Root.configurationChat.getLIMIT_MESSAGE(); // Устанавливаем лимит по умолчанию
+        int offset;
+        int limit; // Устанавливаем лимит по умолчанию
         if (ajax){
             try {
                 if (request.getParameter("offset") != null) {

@@ -3,18 +3,18 @@ package org.webchat.domain;
 import java.util.Date;
 
 public final class Message  {
-    private final Date data;
+    private final Date date;
     private final String content;
     private final User userFrom;
 
     public Message(User userFrom, String content) {
         this.userFrom = userFrom;
         this.content = content;
-        data = new Date();
+        this.date = new Date();
     }
 
-    public Message(Date data, User userFrom, String content) {
-        this.data = data;
+    public Message(Date date, User userFrom, String content) {
+        this.date = date;
         this.userFrom = userFrom;
         this.content = content;
     }
@@ -36,6 +36,6 @@ public final class Message  {
     }
 
     public Date getData() {
-        return data;
+        return date;
     }
 }

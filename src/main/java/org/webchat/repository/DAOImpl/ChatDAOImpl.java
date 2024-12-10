@@ -155,4 +155,21 @@ public class ChatDAOImpl implements ChatDAO {
         }
         return false;
     }
+
+    public boolean hasUserById(String userId, String chatId){
+        String userQuery = "SELECT * FROM user_chats WHERE userId = ? AND chatId = ? LIMIT 1";
+
+        try (Connection connection = databaseConnection.getConnection();
+             PreparedStatement userStatement = connection.prepareStatement(userQuery)) {
+
+            userStatement.setString(1, userId);
+            userStatement.setString(2, chatId);
+            ResultSet userResultSet = userStatement.executeQuery();
+
+            return userResultSet.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

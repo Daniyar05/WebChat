@@ -17,4 +17,5 @@ public class Root {
     public static UserMoodsRepoImpl userMoodsRepo = new UserMoodsRepoImpl(databaseConnection);
     public static UsersRepoImpl usersRepo = new UsersRepoImpl(databaseConnection);
     public static UserManager userManager = new UserManager(databaseConnection);
+
 }

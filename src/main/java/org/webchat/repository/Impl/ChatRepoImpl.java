@@ -43,4 +43,6 @@ public class ChatRepoImpl {
         return (chatDAO.deleteUserComparisonChat(idChat) || chatDAO.deleteChat(idChat));
 
     }
+    public boolean hasUserById(String userId, String chatId){return chatDAO.hasUserById(userId, chatId);}
+
 }
