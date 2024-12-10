@@ -31,7 +31,8 @@ public class UsersRepoImpl {
     public void addUserChat(String userId, String chatId){
         USER_DAO.addUserChat(userId, chatId);
     }
-    public void replaceUsername(String userId, String newUsername){
-        USER_DAO.replaceUsername(userId, newUsername);
+    public boolean replaceUsername(String userId, String newUsername){
+        if (hasUsername(newUsername)) return false;
+        return USER_DAO.replaceUsername(userId, newUsername);
     }
 }

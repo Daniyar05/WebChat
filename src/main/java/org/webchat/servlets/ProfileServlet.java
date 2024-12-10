@@ -26,8 +26,12 @@ public class ProfileServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String newUsername = request.getParameter("name");
         String userId = (String) request.getSession().getAttribute("userId");
-        Root.usersRepo.replaceUsername(userId, newUsername);
-        request.getSession().setAttribute("username", newUsername);
+        if (Root.usersRepo.replaceUsername(userId, newUsername)) {
+            request.getSession().setAttribute("username", newUsername);
+        }
+        else {
+            request.setAttribute("error", true);
+        }
         request.getRequestDispatcher("/profile.jsp").forward(request, response);
     }
 }
