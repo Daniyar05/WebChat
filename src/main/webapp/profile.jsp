@@ -4,6 +4,9 @@
 <head>
     <title>Profile</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/error.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/profile.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/main.css">
+
 </head>
 <body>
 <c:if test="${error == 'true'}">
@@ -21,7 +24,7 @@
     <input type="submit" value="Update">
 </form>
 
-<div class=“button-container”>
+<div class="button-container">
     <button onclick="window.location.href='list-chats';">Переход к списку чатов</button>
 </div>
 

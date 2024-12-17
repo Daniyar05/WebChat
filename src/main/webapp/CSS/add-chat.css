@@ -1,0 +1,21 @@
+
+form {
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+form label {
+    display: block;
+    margin-bottom: 8px;
+    color: #bdbdbd;
+}
+
+form input[type="text"], form input[type="submit"] {
+    margin-top: 10px;
+}
+
+form input[type="submit"] {
+    width: 100%;
+}

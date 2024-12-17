@@ -25,7 +25,7 @@ public class SelectionChatServlet extends HttpServlet {
         addSuitableUser(idUser, mood);
         if (suitableUserId == null){
             request.setAttribute("notFoundException", true);
-            request.getRequestDispatcher("/select-chat.jsp?").forward(request, response);
+            request.getRequestDispatcher("/select-chat.jsp").forward(request, response);
             return;
         }
         String idNewChat = CreateChatForTwoUser.createChat(suitableUserId, idUser);

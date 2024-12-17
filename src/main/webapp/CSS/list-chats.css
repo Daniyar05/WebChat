@@ -1,0 +1,23 @@
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    margin: 10px 0;
+}
+
+img {
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+button {
+    margin-left: 10px;
+}
+
+p {
+    font-size: 18px;
+    color: #9e9e9e;
+}

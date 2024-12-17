@@ -1,4 +1,5 @@
 function deleteChat(chatId, context) {
+
     fetch("edit-chat", {
         method: "DELETE",
         headers: {
@@ -16,18 +17,18 @@ function navigateToList(context){
     history.replaceState(null, "", newUrl);
     window.location.href = newUrl;}
 
-function createChat(chatId){
-    fetch("list-chats", {
-        method: "POST",
-        headers: {
-            "chatId": chatId
-        }
-    }).then(response => {
-        if (response.ok) {
-            navigateToList(context)
-        }
-    })
-}
+// function createChat(chatId){
+//     fetch("list-chats", {
+//         method: "POST",
+//         headers: {
+//             "chatId": chatId
+//         }
+//     }).then(response => {
+//         if (response.ok) {
+//             navigateToList(context)
+//         }
+//     })
+// }
 
 // function navigateBack() {
 //     if (history.length === 1) {

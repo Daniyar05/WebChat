@@ -3,6 +3,8 @@
 <head>
     <title>Welcome to my resource</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/greeting.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/main.css">
+
 </head>
 <body>
 

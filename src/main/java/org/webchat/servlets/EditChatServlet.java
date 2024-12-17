@@ -22,6 +22,7 @@ public class EditChatServlet extends HttpServlet{
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException { // delete chat
         String idChat = request.getHeader("chatId");
+        System.out.println(idChat);
         Root.chatRepo.deleteChat(idChat);
         response.setStatus(HttpServletResponse.SC_OK);
     }
