@@ -2,11 +2,13 @@ package org.webchat.repository.Impl;
 
 import org.webchat.db.DatabaseConnection;
 import org.webchat.domain.User;
+import org.webchat.repository.ChatDAO;
 import org.webchat.repository.DAOImpl.UserDAOImpl;
+import org.webchat.repository.UserRepo;
 
 import java.util.Optional;
 
-public class UsersRepoImpl {
+public class UsersRepoImpl implements UserRepo {
     public UsersRepoImpl(DatabaseConnection databaseConnection) {
         USER_DAO = new UserDAOImpl(databaseConnection);
     }

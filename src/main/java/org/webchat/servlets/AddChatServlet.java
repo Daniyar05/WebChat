@@ -16,6 +16,7 @@ public class AddChatServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
         Root.usersRepo.addUserChat((String) request.getSession().getAttribute("userId"), request.getParameter("chatId"));
         response.sendRedirect(request.getContextPath() + "/list-chats");
 

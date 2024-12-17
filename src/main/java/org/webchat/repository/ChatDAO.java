@@ -2,6 +2,7 @@ package org.webchat.repository;
 
 import org.webchat.domain.Chat;
 import org.webchat.domain.Message;
+import org.webchat.domain.User;
 
 import java.util.Optional;
 
@@ -14,4 +15,6 @@ public interface ChatDAO {
     boolean deleteChat(String idChat);
     boolean deleteMessages(String idChat);
     boolean deleteUserComparisonChat(String idChat);
+
+
 }

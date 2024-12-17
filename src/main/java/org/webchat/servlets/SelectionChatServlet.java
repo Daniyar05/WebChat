@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.webchat.usecase.CreateChatForTwoUser;
 import org.webchat.usecase.Root;
+import org.webchat.usecase.UserManager;
 
 import java.io.IOException;
 
@@ -33,11 +34,11 @@ public class SelectionChatServlet extends HttpServlet {
     }
 
     private String getSuitableUser(String mood, String userById) {
-        return Root.userManager.getRandomUserBasedOnMood(mood, userById);
+        return ((UserManager) getServletContext().getAttribute("userManager")).getRandomUserBasedOnMood(mood, userById);
     }
 
 
     private boolean addSuitableUser(String userId, String mood){
-        return Root.userManager.addUser(userId, mood);
+        return  ((UserManager) getServletContext().getAttribute("userManager")).addUser(userId, mood);
     }
 }

@@ -4,7 +4,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.webchat.repository.ChatsRepo;
 import org.webchat.repository.Impl.ChatRepoImpl;
+import org.webchat.service.impl.ChatService;
 import org.webchat.usecase.Root;
 
 import java.io.IOException;
@@ -15,15 +17,15 @@ public class EditChatServlet extends HttpServlet{
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException { // rename chat
         String newUsername = request.getParameter("name");
         String idChat = request.getParameter("chatId");
-        Root.chatRepo.renameChat(idChat, newUsername);
+
+        ((ChatsRepo) getServletContext().getAttribute("chatRepo")).renameChat(idChat, newUsername);
         response.sendRedirect(request.getContextPath() + "/chat?ID_CHAT=" + idChat);
     }
 
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException { // delete chat
         String idChat = request.getHeader("chatId");
-        System.out.println(idChat);
-        Root.chatRepo.deleteChat(idChat);
+        ((ChatsRepo) getServletContext().getAttribute("chatRepo")).deleteChat(idChat);
         response.setStatus(HttpServletResponse.SC_OK);
     }
 }

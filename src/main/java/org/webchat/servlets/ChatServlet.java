@@ -8,9 +8,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import org.webchat.config.ConfigurationChat;
 import org.webchat.domain.Chat;
 import org.webchat.domain.Message;
 import org.webchat.domain.User;
+import org.webchat.repository.ChatsRepo;
 import org.webchat.service.impl.ChatService;
 import org.webchat.usecase.Root;
 
@@ -22,7 +24,6 @@ import java.util.Optional;
 public class ChatServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ChatService chatService = new ChatService();
         boolean isAjaxRequest = "AjaxRequest".equals(request.getHeader("X-Type-Request"));
         String chatId = request.getParameter("ID_CHAT");
 
@@ -31,16 +32,16 @@ public class ChatServlet extends HttpServlet {
             return;
         }
 
-        Optional<Chat> chatOptional = chatService.getChatById(chatId);
+        Optional<Chat> chatOptional = ((ChatService) getServletContext().getAttribute("chatService")).getChatById(chatId);
         if (chatOptional.isEmpty()) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
 
         if (isAjaxRequest) {
-            handleAjaxRequest(request, response, chatService, chatId);
+            handleAjaxRequest(request, response, ((ChatService) getServletContext().getAttribute("chatService")), chatId);
         } else {
-            handleHtmlRequest(request, response, chatService, chatId);
+            handleHtmlRequest(request, response, ((ChatService) getServletContext().getAttribute("chatService")), chatId);
         }
     }
     private void handleAjaxRequest(HttpServletRequest request, HttpServletResponse response, ChatService chatService, String chatId) throws IOException {
@@ -82,7 +83,7 @@ public class ChatServlet extends HttpServlet {
         if (chatOptional.isPresent()) {
             Chat chat = chatOptional.get();
             request.setAttribute("chat", chat);
-            request.setAttribute("messagesJson", new Gson().toJson(chatService.getMessages(chatId, 0, Root.configurationChat.getLIMIT_MESSAGE())));
+            request.setAttribute("messagesJson", new Gson().toJson(chatService.getMessages(chatId, 0, ((ConfigurationChat) getServletContext().getAttribute("configurationChat")).getLIMIT_MESSAGE())));
             request.getRequestDispatcher("/chat.jsp").forward(request, response);
         }
     }
@@ -90,7 +91,6 @@ public class ChatServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        ChatService chatService = new ChatService();
 
         String authorId = ((String) request.getSession().getAttribute("userId"));
         Optional<User> user = Root.usersRepo.getUser(authorId);
@@ -99,7 +99,8 @@ public class ChatServlet extends HttpServlet {
 
         if (authorId != null && content != null && !content.trim().isEmpty() && user.isPresent()) {
             Message newMessage = new Message(user.get(), content);
-            chatService.addMessage(request.getParameter("ID_CHAT"), newMessage);
+            ((ChatService) getServletContext().getAttribute("chatService")).addMessage(request.getParameter("ID_CHAT"), newMessage);
+
             response.sendRedirect(request.getContextPath() + "/chat?ID_CHAT=" + request.getParameter("ID_CHAT"));
         }
     }
@@ -107,10 +108,8 @@ public class ChatServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ChatService chatService = new ChatService();
-
         String idChat = request.getParameter("chatId");
-        chatService.deleteChat(idChat);
+        ((ChatService) getServletContext().getAttribute("chatService")).deleteChat(idChat);
         response.sendRedirect(request.getContextPath()+"/list-chats");
     }
 }

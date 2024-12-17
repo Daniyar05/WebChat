@@ -14,8 +14,6 @@ public class Root {
     private static final DatabaseConnection databaseConnection = new DatabaseConnection();
     public static final ConfigurationChat configurationChat = ConfigurationChat.getConfig();
     public static ChatRepoImpl chatRepo = new ChatRepoImpl(databaseConnection);
-    public static UserMoodsRepoImpl userMoodsRepo = new UserMoodsRepoImpl(databaseConnection);
     public static UsersRepoImpl usersRepo = new UsersRepoImpl(databaseConnection);
-    public static UserManager userManager = new UserManager(databaseConnection);
 
 }
