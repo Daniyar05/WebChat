@@ -1,4 +1,4 @@
-package org.webchat.dto;
+package org.webchat.dto.request;
 
 import lombok.*;
 

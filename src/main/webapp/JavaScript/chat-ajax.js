@@ -8,7 +8,7 @@ const chatId = chatBox.getAttribute('data-chat-id');
 const context = chatBox.getAttribute('context');
 
 fetchMessages(offset, limit);
-
+const loadedMessages = new Set();
 function fetchMessages(offset, limit, prepend = false) {
     if (isLoading) return;
     isLoading = true;
@@ -28,13 +28,17 @@ function fetchMessages(offset, limit, prepend = false) {
             console.log(data);
 
             const fragment = document.createDocumentFragment();
-            data.value.forEach(message => {
+            data.forEach(message => {
                 const messageDiv = document.createElement('div');
-                messageDiv.innerHTML = `<strong>${message.userFrom.username}</strong>: ${message.content}`;
-                if (prepend) {
-                    fragment.prepend(messageDiv);
-                } else {
-                    fragment.append(messageDiv);
+                const uniqueKey = `${message.userFrom.username}:${message.content}:${new Date(message.date).toISOString()}`;
+                if (!loadedMessages.has(uniqueKey)) {
+                    loadedMessages.add(uniqueKey); // Добавляем уникальный идентификатор в Set
+                    messageDiv.innerHTML = `<strong>${message.userFrom.username}</strong>: ${message.content}`;
+                    if (prepend) {
+                        fragment.prepend(messageDiv);
+                    } else {
+                        fragment.append(messageDiv);
+                    }
                 }
             });
 
@@ -50,7 +54,7 @@ function fetchMessages(offset, limit, prepend = false) {
             isLoading = false;
         });
 }
-// setInterval(() => fetchMessages(0, limit), timeout)
+setInterval(() => fetchMessages(0, limit), timeout)
 scrollToBottom()
 
 

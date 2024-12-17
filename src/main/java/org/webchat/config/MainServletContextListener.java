@@ -18,7 +18,9 @@ import org.webchat.repository.Impl.ChatRepoImpl;
 import org.webchat.repository.Impl.UserMoodsRepoImpl;
 import org.webchat.repository.Impl.UsersRepoImpl;
 import org.webchat.service.ChatsService;
+import org.webchat.service.FileService;
 import org.webchat.service.impl.ChatsServiceImpl;
+import org.webchat.service.impl.FileServiceImpl;
 import org.webchat.servlets.LoginServlet;
 import org.webchat.usecase.UserManager;
 
@@ -55,6 +57,8 @@ public class MainServletContextListener implements ServletContextListener {
         UserManager userManager = new UserManager(databaseConnection);
         context.setAttribute("userManager", userManager);
 
+        FileService fileService = new FileServiceImpl();
+        context.setAttribute("fileService", fileService);
 
 
         UserMapper userMapper = new UserMapperImpl();

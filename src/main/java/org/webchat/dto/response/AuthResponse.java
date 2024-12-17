@@ -1,7 +1,7 @@
-package org.webchat.dto;
+package org.webchat.dto.response;
 
 import lombok.*;
-import org.webchat.domain.User;
+import org.webchat.dto.UserDto;
 
 @Data
 @Builder

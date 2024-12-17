@@ -2,7 +2,7 @@ package org.webchat.mapper.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.webchat.domain.User;
-import org.webchat.dto.SignUpRequest;
+import org.webchat.dto.request.SignUpRequest;
 import org.webchat.dto.UserDto;
 import org.webchat.mapper.UserMapper;
 import org.webchat.usecase.Root;

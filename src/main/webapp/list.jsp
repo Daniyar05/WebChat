@@ -12,6 +12,10 @@
 <c:if test="${chats != null && !chats.isEmpty()}">
     <ul>
         <c:forEach var="chat" items="${chats}" >
+            <img src="${pageContext.request.contextPath}/avatars?chatId=${chat.getIdChat()}"
+                 alt="avatar"
+                 style="width: 30px; height: 30px; border-radius: 30%; object-fit: cover;">
+
             <li><a href="chat?ID_CHAT=${ chat.getIdChat() }">${chat.getName()}</a></li>
 
             <c:set var="chatId" value="${chat.idChat}"/>
