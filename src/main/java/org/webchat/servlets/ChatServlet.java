@@ -45,7 +45,7 @@ public class ChatServlet extends HttpServlet {
     }
     private void handleAjaxRequest(HttpServletRequest request, HttpServletResponse response, ChatService chatService, String chatId) throws IOException {
         int offset = 0;
-        int limit = 20; // Default limit
+        int limit = 20;
 
         try {
             if (request.getParameter("offset") != null) {

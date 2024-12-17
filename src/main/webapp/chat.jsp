@@ -61,8 +61,27 @@
 
     <main class="content">
         <div class="main-content">
+            <div class="avatar-container">
+                <!-- Кнопка с изображением аватара -->
+                <button class="avatar-button">
+                    <img src="${pageContext.request.contextPath}/avatars?chatId=${chat.getIdChat()}"
+                         alt="avatar"
+                         style="width: 30px; height: 30px; border-radius: 30%; object-fit: cover;">
+                </button>
+                <!-- Опции: изменить/удалить -->
+                <div class="avatar-actions" >
+                    <form id="update-avatar-form" enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath}/avatars">
+                        <input type="hidden" name="chatId" value="${chat.getIdChat()}">
+                        <label for="avatar-input">Загрузить аватарку:</label>
+                        <input type="file" id="avatar-input" name="avatar" accept="image/*">
+                        <button type="submit">Изменить</button>
+                    </form>
+                    <button onclick="deleteAvatar('${chat.getIdChat()}', '${pageContext.request.contextPath}')">Удалить</button>
+                </div>
+            </div>
+
             <form action="edit-chat" method="post">
-                <label for="name">Chat Name:</label>
+<%--                <label for="name">Chat Name:</label>--%>
                 <input type="text" id="name" name="name" value="${chat.getName()}" required>
                 <br>
                 <input type="submit" value="Update">
@@ -71,7 +90,6 @@
 
 <%--            <h1>Чат: ${chat.getName()}</h1>--%>
             <div id="chat-box" data-chat-id="${chat.idChat}" context="${pageContext.request.contextPath}" data-messages='${messagesJson}'>
-                <!-- История сообщений -->
             </div>
 
             <form id="message-form" method="post" action="chat?ID_CHAT=${chat.idChat}">
@@ -96,6 +114,22 @@
 <c:set var="chatId" value="${chat.idChat}"/>
 <script src="<c:url value='/JavaScript/chat-function.js'/>"></script>
 <script src="<c:url value='/JavaScript/chat-ajax.js'/>"></script>
+<script>
+    document.getElementById("update-avatar-form").addEventListener("submit", function (event) {
+        event.preventDefault();
+        const formData = new FormData(this);
+
+        fetch(this.action, {
+            method: 'POST',
+            body: formData,
+        })
+            .then(response => {
+                if (response.ok) {
+                    location.reload();
+                }
+            })
+    });
+</script>
 
 </body>
 </html>

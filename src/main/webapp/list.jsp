@@ -20,6 +20,10 @@
 
     <main class="content">
         <div class="main-content">
+            <div class="button-container">
+                <button class="btn" onclick="location.href='add-chat'">Добавить чат</button>
+                <button class="btn" id="createChatBtn">Создать чат</button>
+            </div>
             <h1>Ваши чаты</h1>
             <c:if test="${chats != null && !chats.isEmpty()}">
                 <ul>
@@ -44,6 +48,22 @@
 
     </aside>
 </div>
+
+<script>
+    document.getElementById('createChatBtn').addEventListener('click', function () {
+        fetch('${pageContext.request.contextPath}/list-chats', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response => {
+            if (response.ok) {
+                window.location.reload();
+            }
+        });
+    });
+</script>
+
 </body>
 </html>
 

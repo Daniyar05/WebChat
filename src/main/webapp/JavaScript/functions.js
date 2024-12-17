@@ -17,6 +17,17 @@ function navigateToList(context){
     history.replaceState(null, "", newUrl);
     window.location.href = newUrl;}
 
+function deleteAvatar(chatId, contextPath) {
+    fetch(`${contextPath}/avatars?chatId=${chatId}`, {
+        method: 'DELETE',
+    })
+        .then(response => {
+            if (response.ok) {
+                location.reload(); // Обновляем страницу
+            }
+        })
+}
+
 // function createChat(chatId){
 //     fetch("list-chats", {
 //         method: "POST",

@@ -33,7 +33,6 @@
 </head>
 <body>
 <div class="container">
-    <!-- Левая панель с действиями -->
     <nav class="sidebar">
         <ul>
             <button onclick="location.href='greeting'">Главная</button>
@@ -43,7 +42,6 @@
         </ul>
     </nav>
 
-    <!-- Основное содержимое -->
     <main class="content">
         <div class="main-content">
             <h2>Добавление нового чата</h2>
@@ -55,7 +53,6 @@
         </div>
     </main>
 
-    <!-- Правая панель с профилем -->
     <aside class="left-part">
         <%@ taglib prefix="custom" tagdir="/WEB-INF/tags" %>
 
