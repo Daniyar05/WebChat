@@ -31,7 +31,7 @@ public class SelectionChatServlet extends HttpServlet {
             return;
         }
         String idNewChat = CreateChatForTwoUser.createChat(suitableUserId, idUser, ((ChatRepo) getServletContext().getAttribute("chatRepo")), ((UserRepo) getServletContext().getAttribute("usersRepo")));
-        request.getRequestDispatcher("/chat?ID_CHAT=" + idNewChat).forward(request, response);
+        response.sendRedirect(request.getContextPath()+"/chat?ID_CHAT=" + idNewChat);
     }
 
     private String getSuitableUser(String mood, String userById) {

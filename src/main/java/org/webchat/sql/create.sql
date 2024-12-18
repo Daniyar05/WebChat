@@ -26,3 +26,11 @@ CREATE TABLE IF NOT EXISTS user_chats (
                                           CONSTRAINT fk_user_chat_user FOREIGN KEY (id_user) REFERENCES users(id_user) ON DELETE CASCADE,
                                           CONSTRAINT fk_user_chat_chat FOREIGN KEY (id_chat) REFERENCES chats(id_chat) ON DELETE CASCADE
 );
+
+
+CREATE TABLE IF NOT EXISTS user_mood (
+                                         id BIGSERIAL PRIMARY KEY,
+                                         id_user VARCHAR(255) NOT NULL,
+                                         mood VARCHAR(255) NOT NULL,
+                                         CONSTRAINT fk_user_mood_user FOREIGN KEY (id_user) REFERENCES users(id_user) ON DELETE CASCADE
+);

@@ -17,7 +17,7 @@ public class UserMoodsRepoImpl implements UserMoodRepo {
     }
 
     public List<String> getUsersId(String mood, String userById) {
-        String userQuery = "SELECT id_user FROM user_moods WHERE mood = ? AND id_user!=?";
+        String userQuery = "SELECT id_user FROM user_mood WHERE mood = ? AND id_user!=?";
         List<String> list = new ArrayList<>();
         try (Connection connection = databaseConnection.getConnection();
              PreparedStatement userStatement = connection.prepareStatement(userQuery)) {
@@ -37,7 +37,7 @@ public class UserMoodsRepoImpl implements UserMoodRepo {
     }
 
     public boolean addUserMood(String userId, String mood) {
-        String userQuery = "INSERT INTO user_moods (id_user, mood) VALUES (?,?)";
+        String userQuery = "INSERT INTO user_mood (id_user, mood) VALUES (?,?)";
         removeUser(userId);
         try (Connection connection = databaseConnection.getConnection();
              PreparedStatement userStatement = connection.prepareStatement(userQuery)) {
@@ -54,7 +54,7 @@ public class UserMoodsRepoImpl implements UserMoodRepo {
     }
 
     public boolean removeUser(String userId){
-        String userQuery = "DELETE FROM user_moods WHERE id_user=?";
+        String userQuery = "DELETE FROM user_mood WHERE id_user=?";
 
         try (Connection connection = databaseConnection.getConnection();
              PreparedStatement userStatement = connection.prepareStatement(userQuery)) {
@@ -69,7 +69,7 @@ public class UserMoodsRepoImpl implements UserMoodRepo {
         return false;
     }
     private boolean removeById(String id){
-        String userQuery = "DELETE FROM user_moods WHERE id=?";
+        String userQuery = "DELETE FROM user_mood WHERE id=?";
 
         try (Connection connection = databaseConnection.getConnection();
              PreparedStatement userStatement = connection.prepareStatement(userQuery)) {
@@ -85,7 +85,7 @@ public class UserMoodsRepoImpl implements UserMoodRepo {
     }
 
     public boolean hasMoodsForUser(String userId){
-        String userQuery = "SELECT * FROM user_moods WHERE id_user=?";
+        String userQuery = "SELECT * FROM user_mood WHERE id_user=?";
 
         try (Connection connection = databaseConnection.getConnection();
              PreparedStatement userStatement = connection.prepareStatement(userQuery)) {
