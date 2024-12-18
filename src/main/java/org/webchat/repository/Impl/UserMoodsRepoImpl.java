@@ -1,6 +1,7 @@
 package org.webchat.repository.Impl;
 
 import org.webchat.db.DatabaseConnection;
+import org.webchat.repository.UserMoodRepo;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserMoodsRepoImpl {
+public class UserMoodsRepoImpl implements UserMoodRepo {
     DatabaseConnection databaseConnection;
     public UserMoodsRepoImpl(DatabaseConnection databaseConnection) {
         this.databaseConnection = databaseConnection;

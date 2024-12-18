@@ -8,11 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.webchat.db.DatabaseConnection;
-import org.webchat.mapper.ChatMapper;
-import org.webchat.mapper.MessageMapper;
 import org.webchat.mapper.UserMapper;
-import org.webchat.mapper.impl.ChatMapperImpl;
-import org.webchat.mapper.impl.MessageMapperImpl;
 import org.webchat.mapper.impl.UserMapperImpl;
 import org.webchat.repository.DAO.ChatDAO;
 import org.webchat.repository.DAO.Impl.ChatDAOImpl;
@@ -20,10 +16,8 @@ import org.webchat.repository.Impl.ChatRepoImpl;
 import org.webchat.repository.Impl.UserMoodsRepoImpl;
 import org.webchat.repository.Impl.UsersRepoImpl;
 import org.webchat.repository.UserRepo;
-import org.webchat.service.ChatsService;
 import org.webchat.service.FileService;
 import org.webchat.service.impl.ChatService;
-import org.webchat.service.impl.ChatsServiceImpl;
 import org.webchat.service.impl.FileServiceImpl;
 import org.webchat.servlets.LoginServlet;
 import org.webchat.usecase.UserManager;
@@ -73,14 +67,8 @@ public class MainServletContextListener implements ServletContextListener {
         context.setAttribute("chatService", chatService);
 
 
-        ChatMapper chatMapper = new ChatMapperImpl();
-        MessageMapper messageMapper = new MessageMapperImpl();
-
-        ChatsService chatsService = new ChatsServiceImpl(chatRepo, usersRepo,
-                chatMapper,
-//                userMapper,
-                messageMapper);
-        context.setAttribute("chatsService", chatsService);
+//        ChatMapper chatMapper = new ChatMapperImpl();
+//        MessageMapper messageMapper = new MessageMapperImpl();
 
 
 

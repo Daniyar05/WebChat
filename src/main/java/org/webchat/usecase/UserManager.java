@@ -1,17 +1,16 @@
 package org.webchat.usecase;
 
-import org.webchat.db.DatabaseConnection;
-import org.webchat.repository.Impl.UserMoodsRepoImpl;
+import org.webchat.repository.UserMoodRepo;
 
 import java.util.*;
 
 public class UserManager {
 
-    public UserManager(UserMoodsRepoImpl userMoodsRepo) {
+    public UserManager(UserMoodRepo userMoodsRepo) {
         this.userMoodsRepo = userMoodsRepo;
     }
 
-    private final UserMoodsRepoImpl userMoodsRepo;
+    private final UserMoodRepo userMoodsRepo;
 
 
     private final Random random = new Random();
