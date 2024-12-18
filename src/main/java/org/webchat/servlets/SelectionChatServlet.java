@@ -5,8 +5,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.webchat.repository.ChatRepo;
+import org.webchat.repository.UserRepo;
 import org.webchat.usecase.CreateChatForTwoUser;
-import org.webchat.usecase.Root;
 import org.webchat.usecase.UserManager;
 
 import java.io.IOException;
@@ -29,7 +30,7 @@ public class SelectionChatServlet extends HttpServlet {
             request.getRequestDispatcher("/select-chat.jsp").forward(request, response);
             return;
         }
-        String idNewChat = CreateChatForTwoUser.createChat(suitableUserId, idUser);
+        String idNewChat = CreateChatForTwoUser.createChat(suitableUserId, idUser, ((ChatRepo) getServletContext().getAttribute("chatRepo")), ((UserRepo) getServletContext().getAttribute("usersRepo")));
         request.getRequestDispatcher("/chat?ID_CHAT=" + idNewChat).forward(request, response);
     }
 

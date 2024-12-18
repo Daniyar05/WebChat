@@ -14,4 +14,6 @@ public interface UserRepo {
     boolean hasUsername(String username);
 
     void addUser(User newUser, String password);
+
+    boolean replaceUsername(String userId, String newUsername);
 }

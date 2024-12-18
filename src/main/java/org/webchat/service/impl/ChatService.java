@@ -5,7 +5,6 @@ import org.webchat.domain.Message;
 import org.webchat.domain.User;
 import org.webchat.repository.ChatRepo;
 import org.webchat.repository.UserRepo;
-import org.webchat.usecase.Root;
 
 import java.util.List;
 import java.util.Optional;

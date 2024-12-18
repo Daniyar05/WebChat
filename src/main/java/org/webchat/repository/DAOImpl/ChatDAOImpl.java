@@ -5,7 +5,6 @@ import org.webchat.domain.Message;
 import org.webchat.domain.User;
 import org.webchat.repository.ChatDAO;
 import org.webchat.db.DatabaseConnection;
-import org.webchat.usecase.Root;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -37,7 +36,7 @@ public class ChatDAOImpl implements ChatDAO {
                 ResultSet messagesResultSet = messagesStatement.executeQuery();
                 Optional<User> tempUser;
                 while (messagesResultSet.next()) {
-                    tempUser = Root.usersRepo.getUser(messagesResultSet.getString("id_from"));
+                    tempUser = getUser(messagesResultSet.getString("id_from"));
                     if (tempUser.isPresent()) {
                         Message message = new Message(
                                 messagesResultSet.getTimestamp("date"),
@@ -169,5 +168,31 @@ public class ChatDAOImpl implements ChatDAO {
             e.printStackTrace();
         }
         return false;
+    }
+    private Optional<User> getUser(String idUser) {
+        String userQuery = "SELECT * FROM users WHERE id_user = ?";
+        String userChatsQuery = "SELECT id_chat FROM user_chats WHERE id_user = ?";
+
+        try (Connection connection = databaseConnection.getConnection();
+             PreparedStatement userStatement = connection.prepareStatement(userQuery);
+             PreparedStatement userChatsStatement = connection.prepareStatement(userChatsQuery)) {
+
+            userStatement.setString(1, idUser);
+            ResultSet userResultSet = userStatement.executeQuery();
+
+            if (userResultSet.next()) {
+                List<String> chats = new ArrayList<>();
+                userChatsStatement.setString(1, idUser);
+                ResultSet userChatsResultSet = userChatsStatement.executeQuery();
+                while (userChatsResultSet.next()) {
+                    chats.add(userChatsResultSet.getString("id_chat"));
+                }
+                return Optional.of(new User(idUser,userResultSet.getString("username"), chats));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return Optional.empty();
     }
 }

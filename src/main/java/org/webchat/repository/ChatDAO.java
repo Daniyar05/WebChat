@@ -17,4 +17,5 @@ public interface ChatDAO {
     boolean deleteUserComparisonChat(String idChat);
 
 
+    boolean hasUserById(String userId, String chatId);
 }

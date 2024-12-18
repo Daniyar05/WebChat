@@ -1,22 +1,22 @@
 package org.webchat.repository.Impl;
 
 
-import org.webchat.db.DatabaseConnection;
 import org.webchat.domain.Chat;
 import org.webchat.domain.Message;
+import org.webchat.repository.ChatDAO;
 import org.webchat.repository.ChatRepo;
-import org.webchat.repository.DAOImpl.ChatDAOImpl;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class ChatRepoImpl implements ChatRepo {
-    private final ChatDAOImpl chatDAO;
-
-    public ChatRepoImpl(DatabaseConnection databaseConnection) {
-        chatDAO=new ChatDAOImpl(databaseConnection);
+    public ChatRepoImpl(ChatDAO chatDAO) {
+        this.chatDAO = chatDAO;
     }
+
+    private final ChatDAO chatDAO;
+
 
     public Optional<Chat> getChat(String idChat) {
         return chatDAO.getChat(idChat);
@@ -42,8 +42,6 @@ public class ChatRepoImpl implements ChatRepo {
     }
     public boolean deleteChat(String idChat){
         return chatDAO.deleteChat(idChat);
-//        return (chatDAO.deleteUserComparisonChat(idChat) || chatDAO.deleteChat(idChat));
-
     }
     public boolean hasUserById(String userId, String chatId){return chatDAO.hasUserById(userId, chatId);}
 

@@ -6,9 +6,7 @@ import org.webchat.domain.Message;
 import org.webchat.dto.ChatDto;
 import org.webchat.dto.MessageDto;
 import org.webchat.mapper.ChatMapper;
-import org.webchat.usecase.Root;
 
-import java.util.Collections;
 import java.util.List;
 
 public class ChatMapperImpl implements ChatMapper {

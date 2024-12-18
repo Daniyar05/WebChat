@@ -27,7 +27,7 @@ public class ChatsServiceImpl implements ChatsService {
     private final UserRepo usersRepository;
 
     private final ChatMapper chatMapper;
-    private final UserMapper userMapper;
+//    private final UserMapper userMapper;
     private final MessageMapper messageMapper;
 
     @Override

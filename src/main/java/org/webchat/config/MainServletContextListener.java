@@ -14,6 +14,8 @@ import org.webchat.mapper.UserMapper;
 import org.webchat.mapper.impl.ChatMapperImpl;
 import org.webchat.mapper.impl.MessageMapperImpl;
 import org.webchat.mapper.impl.UserMapperImpl;
+import org.webchat.repository.ChatDAO;
+import org.webchat.repository.DAOImpl.ChatDAOImpl;
 import org.webchat.repository.Impl.ChatRepoImpl;
 import org.webchat.repository.Impl.UserMoodsRepoImpl;
 import org.webchat.repository.Impl.UsersRepoImpl;
@@ -49,7 +51,12 @@ public class MainServletContextListener implements ServletContextListener {
         final ConfigurationChat configurationChat = ConfigurationChat.getConfig();
         context.setAttribute("configurationChat", configurationChat);
 
-        ChatRepoImpl chatRepo = new ChatRepoImpl(databaseConnection);
+
+        ChatDAO chatDAO = new ChatDAOImpl(databaseConnection);
+        context.setAttribute("chatDAO", chatDAO);
+
+
+        ChatRepoImpl chatRepo = new ChatRepoImpl(chatDAO);
         context.setAttribute("chatRepo", chatRepo);
 
         UserMoodsRepoImpl userMoodsRepo = new UserMoodsRepoImpl(databaseConnection);
@@ -58,13 +65,13 @@ public class MainServletContextListener implements ServletContextListener {
         UserRepo usersRepo = new UsersRepoImpl(databaseConnection);
         context.setAttribute("usersRepo", usersRepo);
 
-        UserManager userManager = new UserManager(databaseConnection);
+        UserManager userManager = new UserManager(userMoodsRepo);
         context.setAttribute("userManager", userManager);
 
         FileService fileService = new FileServiceImpl();
         context.setAttribute("fileService", fileService);
 
-        UserMapper userMapper = new UserMapperImpl();
+        UserMapper userMapper = new UserMapperImpl(usersRepo);
         context.setAttribute("userMapper", userMapper);
 
         ChatService chatService = new ChatService(chatRepo, usersRepo);
@@ -76,9 +83,12 @@ public class MainServletContextListener implements ServletContextListener {
 
         ChatsService chatsService = new ChatsServiceImpl(chatRepo, usersRepo,
                 chatMapper,
-                userMapper,
+//                userMapper,
                 messageMapper);
         context.setAttribute("chatsService", chatsService);
+
+
+
     }
 
     @Override

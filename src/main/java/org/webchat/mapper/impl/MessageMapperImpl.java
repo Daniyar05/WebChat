@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.webchat.domain.Message;
 import org.webchat.dto.MessageDto;
 import org.webchat.mapper.MessageMapper;
-import org.webchat.usecase.Root;
 
 @RequiredArgsConstructor
 public class MessageMapperImpl implements MessageMapper {

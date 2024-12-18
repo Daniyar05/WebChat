@@ -7,11 +7,12 @@ import java.util.*;
 
 public class UserManager {
 
+    public UserManager(UserMoodsRepoImpl userMoodsRepo) {
+        this.userMoodsRepo = userMoodsRepo;
+    }
+
     private final UserMoodsRepoImpl userMoodsRepo;
 
-    public UserManager(DatabaseConnection databaseConnection) {
-        this.userMoodsRepo = new UserMoodsRepoImpl(databaseConnection);
-    }
 
     private final Random random = new Random();
 

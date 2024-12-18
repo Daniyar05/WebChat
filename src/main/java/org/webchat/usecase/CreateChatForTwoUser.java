@@ -1,15 +1,17 @@
 package org.webchat.usecase;
 
 import org.webchat.domain.Chat;
+import org.webchat.repository.ChatRepo;
 import org.webchat.repository.Impl.ChatRepoImpl;
 import org.webchat.repository.Impl.UsersRepoImpl;
+import org.webchat.repository.UserRepo;
 
 public class CreateChatForTwoUser {
-    public static String createChat(String idUser1, String idUser2){
+    public static String createChat(String idUser1, String idUser2, ChatRepo chatRepo, UserRepo userRepo){
         Chat newChat = new Chat();
-        Root.chatRepo.addChat(newChat);
-        Root.usersRepo.addUserChat(idUser1,newChat.getIdChat());
-        Root.usersRepo.addUserChat(idUser2,newChat.getIdChat());
+        chatRepo.addChat(newChat);
+        userRepo.addUserChat(idUser1,newChat.getIdChat());
+        userRepo.addUserChat(idUser2,newChat.getIdChat());
         return newChat.getIdChat();
     }
 }

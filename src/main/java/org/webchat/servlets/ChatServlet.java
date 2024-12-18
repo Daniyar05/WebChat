@@ -12,8 +12,8 @@ import org.webchat.config.ConfigurationChat;
 import org.webchat.domain.Chat;
 import org.webchat.domain.Message;
 import org.webchat.domain.User;
+import org.webchat.repository.UserRepo;
 import org.webchat.service.impl.ChatService;
-import org.webchat.usecase.Root;
 
 import java.io.IOException;
 import java.util.List;
@@ -92,7 +92,7 @@ public class ChatServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         String authorId = ((String) request.getSession().getAttribute("userId"));
-        Optional<User> user = Root.usersRepo.getUser(authorId);
+        Optional<User> user = ((UserRepo) getServletContext().getAttribute("usersRepo")).getUser(authorId);
 
         String content = request.getParameter("content");
 
