@@ -27,29 +27,3 @@ function deleteAvatar(chatId, contextPath) {
             }
         })
 }
-
-// function createChat(chatId){
-//     fetch("list-chats", {
-//         method: "POST",
-//         headers: {
-//             "chatId": chatId
-//         }
-//     }).then(response => {
-//         if (response.ok) {
-//             navigateToList(context)
-//         }
-//     })
-// }
-
-// function navigateBack() {
-//     if (history.length === 1) {
-//         location.href = "/";
-//     } else {
-//         history.back();
-//     }
-//     refreshPage();
-// }
-//
-// function refreshPage() {
-//     location.reload();
-// }

@@ -1,10 +1,10 @@
-package org.webchat.repository.DAOImpl;
+package org.webchat.repository.DAO.Impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.webchat.domain.User;
 import org.webchat.db.DatabaseConnection;
-import org.webchat.repository.UserDAO;
+import org.webchat.repository.DAO.UserDAO;
 import org.webchat.utils.PasswordHasher;
 
 import java.sql.*;

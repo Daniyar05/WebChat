@@ -3,7 +3,7 @@ package org.webchat.repository.Impl;
 
 import org.webchat.domain.Chat;
 import org.webchat.domain.Message;
-import org.webchat.repository.ChatDAO;
+import org.webchat.repository.DAO.ChatDAO;
 import org.webchat.repository.ChatRepo;
 
 import java.util.List;

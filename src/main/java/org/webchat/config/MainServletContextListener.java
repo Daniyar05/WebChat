@@ -14,8 +14,8 @@ import org.webchat.mapper.UserMapper;
 import org.webchat.mapper.impl.ChatMapperImpl;
 import org.webchat.mapper.impl.MessageMapperImpl;
 import org.webchat.mapper.impl.UserMapperImpl;
-import org.webchat.repository.ChatDAO;
-import org.webchat.repository.DAOImpl.ChatDAOImpl;
+import org.webchat.repository.DAO.ChatDAO;
+import org.webchat.repository.DAO.Impl.ChatDAOImpl;
 import org.webchat.repository.Impl.ChatRepoImpl;
 import org.webchat.repository.Impl.UserMoodsRepoImpl;
 import org.webchat.repository.Impl.UsersRepoImpl;
@@ -26,12 +26,7 @@ import org.webchat.service.impl.ChatService;
 import org.webchat.service.impl.ChatsServiceImpl;
 import org.webchat.service.impl.FileServiceImpl;
 import org.webchat.servlets.LoginServlet;
-import org.webchat.usecase.ChatsLaunch;
-import org.webchat.usecase.CreateChatForTwoUser;
 import org.webchat.usecase.UserManager;
-
-import javax.sql.DataSource;
-import java.util.List;
 
 @Slf4j
 @WebListener

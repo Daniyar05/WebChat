@@ -1,27 +1,3 @@
-<%--<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>--%>
-
-<%--<!DOCTYPE html>--%>
-<%--<html>--%>
-<%--<head>--%>
-<%--    <meta charset="UTF-8">--%>
-<%--    <title>Добавление Чата</title>--%>
-<%--    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/add-chat.css">--%>
-<%--    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/main.css">--%>
-
-<%--</head>--%>
-<%--<body>--%>
-
-<%--<h2>Добавление нового чата</h2>--%>
-<%--<form action="add-chat" method="post">--%>
-<%--    <link href="CSS/styles.css" rel=“stylesheet”>--%>
-<%--    <label for="chatId">ID Чата:</label><br>--%>
-<%--    <input type="text" id="chatId" name="chatId" required><br>--%>
-<%--    <input type="submit" value="Добавить чат">--%>
-<%--</form>--%>
-
-<%--</body>--%>
-<%--</html>--%>
-
 
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>

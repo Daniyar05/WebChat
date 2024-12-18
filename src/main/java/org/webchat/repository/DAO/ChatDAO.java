@@ -1,8 +1,7 @@
-package org.webchat.repository;
+package org.webchat.repository.DAO;
 
 import org.webchat.domain.Chat;
 import org.webchat.domain.Message;
-import org.webchat.domain.User;
 
 import java.util.Optional;
 

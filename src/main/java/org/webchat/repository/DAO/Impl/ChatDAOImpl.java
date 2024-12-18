@@ -1,9 +1,9 @@
-package org.webchat.repository.DAOImpl;
+package org.webchat.repository.DAO.Impl;
 
 import org.webchat.domain.Chat;
 import org.webchat.domain.Message;
 import org.webchat.domain.User;
-import org.webchat.repository.ChatDAO;
+import org.webchat.repository.DAO.ChatDAO;
 import org.webchat.db.DatabaseConnection;
 
 import java.sql.*;

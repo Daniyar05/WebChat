@@ -33,7 +33,12 @@ function fetchMessages(offset, limit, prepend = false) {
                 const uniqueKey = `${message.userFrom.username}:${message.content}:${new Date(message.date).toISOString()}`;
                 if (!loadedMessages.has(uniqueKey)) {
                     loadedMessages.add(uniqueKey); // Добавляем уникальный идентификатор в Set
-                    messageDiv.innerHTML = `<strong>${message.userFrom.username}</strong>: ${message.content}`;
+                    const usernameText = document.createElement("strong");
+                    usernameText.innerText = message.userFrom.username
+                    messageDiv.appendChild(usernameText)
+                    const messageText = document.createElement("span")
+                    messageText.innerText = `> ${message.content}`
+                    messageDiv.appendChild(messageText)
                     if (prepend) {
                         fragment.prepend(messageDiv);
                     } else {

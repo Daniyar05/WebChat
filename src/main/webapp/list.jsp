@@ -4,24 +4,24 @@
 <html>
 <head>
     <title>Ваши чаты</title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/list-chats.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/main.css">
+    <link rel="stylesheet" type="text/css" href="<c:url value='/CSS/list-chats.css' />">
+    <link rel="stylesheet" type="text/css" href="<c:url value='/CSS/main.css' />">
 </head>
 <body>
 <div class="container">
     <nav class="sidebar">
         <ul>
-            <button onclick="location.href='greeting.jsp'">Главная</button>
-            <button onclick="location.href='list-chats'" aria-pressed="true">Мессенджер</button>
-            <button onclick="location.href='select-chat'">Подбор собеседника</button>
-            <button onclick="location.href='logout'">Выход</button>
+            <button onclick="location.href='<c:url value="/greeting.jsp" />'">Главная</button>
+            <button onclick="location.href='<c:url value="/list-chats" />'" aria-pressed="true">Мессенджер</button>
+            <button onclick="location.href='<c:url value="/select-chat" />'">Подбор собеседника</button>
+            <button onclick="location.href='<c:url value="/logout" />'">Выход</button>
         </ul>
     </nav>
 
     <main class="content">
         <div class="main-content">
             <div class="button-container">
-                <button class="btn" onclick="location.href='add-chat'">Добавить чат</button>
+                <button class="btn" onclick="location.href='<c:url value="/add-chat" />'">Добавить чат</button>
                 <button class="btn" id="createChatBtn">Создать чат</button>
             </div>
             <h1>Ваши чаты</h1>
@@ -29,8 +29,12 @@
                 <ul>
                     <c:forEach var="chat" items="${chats}">
                         <li class="chat-item">
-                            <img src="${pageContext.request.contextPath}/avatars?chatId=${chat.getIdChat()}" alt="avatar" class="chat-avatar">
-                            <a href="chat?ID_CHAT=${chat.getIdChat()}" class="chat-link">${chat.getName()}</a>
+                            <img src="<c:url value='/avatars' />?chatId=<c:out value='${chat.idChat}' />"
+                                 alt="avatar"
+                                 class="chat-avatar">
+                            <a href="<c:url value='/chat' />?ID_CHAT=<c:out value='${chat.idChat}' />" class="chat-link">
+                                <c:out value="${chat.name}" />
+                            </a>
                         </li>
                     </c:forEach>
                 </ul>
@@ -43,15 +47,13 @@
 
     <aside class="left-part">
         <%@ taglib prefix="custom" tagdir="/WEB-INF/tags" %>
-
-        <custom:profileButton/>
-
+        <custom:profileButton />
     </aside>
 </div>
 
 <script>
     document.getElementById('createChatBtn').addEventListener('click', function () {
-        fetch('${pageContext.request.contextPath}/list-chats', {
+        fetch('<c:url value="/list-chats" />', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -66,53 +68,3 @@
 
 </body>
 </html>
-
-
-<%--<%@ page contentType="text/html;charset=UTF-8"  %>--%>
-<%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
-<%--<%@ taglib prefix="custom" tagdir="/WEB-INF/tags" %>--%>
-
-<%--<html>--%>
-<%--<head>--%>
-<%--    <script src="<c:url value="/JavaScript/functions.js"/>"></script>--%>
-<%--    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/list-chats.css">--%>
-<%--    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/main.css">--%>
-<%--    <title>Ваши чаты</title>--%>
-<%--</head>--%>
-<%--<body>--%>
-<%--<custom:profileButton/>--%>
-<%--<h1>Ваши чаты</h1>--%>
-
-<%--<c:if test="${chats != null && !chats.isEmpty()}">--%>
-<%--    <ul>--%>
-<%--        <c:forEach var="chat" items="${chats}" >--%>
-<%--            <img src="${pageContext.request.contextPath}/avatars?chatId=${chat.getIdChat()}"--%>
-<%--                 alt="avatar"--%>
-<%--                 style="width: 30px; height: 30px; border-radius: 30%; object-fit: cover;">--%>
-
-<%--            <li><a href="chat?ID_CHAT=${ chat.getIdChat() }">${chat.getName()}</a></li>--%>
-
-<%--            <c:set var="chatId" value="${chat.idChat}"/>--%>
-<%--&lt;%&ndash;            <button onclick="deleteChat('${chatId}', '<c:url value="/"/>')">Delete Chat</button>&ndash;%&gt;--%>
-
-<%--        </c:forEach>--%>
-<%--    </ul>--%>
-<%--</c:if>--%>
-
-<%--<c:if test="${chats == null || chats.isEmpty()}">--%>
-<%--    <p>У вас нет доступных чатов.</p>--%>
-<%--</c:if>--%>
-
-<%--<c:set var="chatId" value="${chat.idChat}"/>--%>
-<%--<form id="list-chats" method="post" action="list-chats">--%>
-<%--    <button type="submit">Создать чат</button>--%>
-<%--</form>--%>
-<%--<li><a href="add-chat?ID_USER=${user_id}">Добавить чат</a></li>--%>
-<%--<div class=“button-container”>--%>
-<%--    <button onclick="window.location.href='profile';">Личный кабинет</button>--%>
-<%--</div>--%>
-<%--<div class=“button-container”>--%>
-<%--    <button onclick="window.location.href='select-chat';">Подбор чата</button>--%>
-<%--</div>--%>
-<%--</body>--%>
-<%--</html>--%>
