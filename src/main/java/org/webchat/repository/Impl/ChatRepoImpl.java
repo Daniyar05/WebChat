@@ -41,7 +41,8 @@ public class ChatRepoImpl implements ChatRepo {
         return chatDAO.renameChat(idChat, newName);
     }
     public boolean deleteChat(String idChat){
-        return (chatDAO.deleteUserComparisonChat(idChat) || chatDAO.deleteChat(idChat));
+        return chatDAO.deleteChat(idChat);
+//        return (chatDAO.deleteUserComparisonChat(idChat) || chatDAO.deleteChat(idChat));
 
     }
     public boolean hasUserById(String userId, String chatId){return chatDAO.hasUserById(userId, chatId);}

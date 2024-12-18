@@ -129,7 +129,7 @@ public class ChatDAOImpl implements ChatDAO {
 
         try (Connection connection = databaseConnection.getConnection();
             PreparedStatement messageStatement = connection.prepareStatement(chatQuery)) {
-            deleteMessages(idChat);
+//            deleteMessages(idChat);
 
             messageStatement.setString(1, idChat);
             messageStatement.executeUpdate();
