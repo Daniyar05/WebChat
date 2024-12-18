@@ -9,8 +9,10 @@ import org.webchat.dto.MessageDto;
 import org.webchat.mapper.ChatMapper;
 import org.webchat.mapper.MessageMapper;
 import org.webchat.mapper.UserMapper;
+import org.webchat.repository.ChatRepo;
 import org.webchat.repository.Impl.ChatRepoImpl;
 import org.webchat.repository.Impl.UsersRepoImpl;
+import org.webchat.repository.UserRepo;
 import org.webchat.service.ChatsService;
 
 import java.time.LocalDate;
@@ -21,8 +23,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ChatsServiceImpl implements ChatsService {
 
-    private final ChatRepoImpl chatRepository;
-    private final UsersRepoImpl usersRepository;
+    private final ChatRepo chatRepository;
+    private final UserRepo usersRepository;
 
     private final ChatMapper chatMapper;
     private final UserMapper userMapper;

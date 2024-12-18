@@ -4,14 +4,14 @@ package org.webchat.repository.Impl;
 import org.webchat.db.DatabaseConnection;
 import org.webchat.domain.Chat;
 import org.webchat.domain.Message;
-import org.webchat.repository.ChatsRepo;
+import org.webchat.repository.ChatRepo;
 import org.webchat.repository.DAOImpl.ChatDAOImpl;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class ChatRepoImpl implements ChatsRepo {
+public class ChatRepoImpl implements ChatRepo {
     private final ChatDAOImpl chatDAO;
 
     public ChatRepoImpl(DatabaseConnection databaseConnection) {

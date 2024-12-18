@@ -5,12 +5,10 @@ import org.webchat.domain.Message;
 import org.webchat.domain.User;
 import org.webchat.repository.ChatDAO;
 import org.webchat.db.DatabaseConnection;
-import org.webchat.repository.Impl.UsersRepoImpl;
 import org.webchat.usecase.Root;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 

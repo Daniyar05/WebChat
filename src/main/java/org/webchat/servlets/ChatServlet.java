@@ -12,7 +12,6 @@ import org.webchat.config.ConfigurationChat;
 import org.webchat.domain.Chat;
 import org.webchat.domain.Message;
 import org.webchat.domain.User;
-import org.webchat.repository.ChatsRepo;
 import org.webchat.service.impl.ChatService;
 import org.webchat.usecase.Root;
 

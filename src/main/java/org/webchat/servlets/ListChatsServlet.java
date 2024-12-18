@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.webchat.domain.Chat;
 import org.webchat.domain.User;
-import org.webchat.repository.ChatsRepo;
+import org.webchat.repository.ChatRepo;
 import org.webchat.repository.UserRepo;
 import org.webchat.usecase.ChatsLaunch;
 
@@ -38,7 +38,7 @@ public class ListChatsServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Chat newChat = new Chat();
-        ((ChatsRepo) getServletContext().getAttribute("chatRepo")).addChat(newChat);
+        ((ChatRepo) getServletContext().getAttribute("chatRepo")).addChat(newChat);
         ((UserRepo) getServletContext().getAttribute("usersRepo")).addUserChat((String) request.getSession().getAttribute("userId"),newChat.getIdChat());
         response.sendRedirect(request.getContextPath() + "/list-chats");
     }

@@ -30,13 +30,13 @@
 }
 
 .select-field:focus {
-    border-color: #4caf50;
+    border-color: #4c95af;
 }
 
 .button {
     padding: 10px 20px;
     font-size: 16px;
-    background-color: #4caf50;
+    background-color: #8aead6;
     color: white;
     border: none;
     border-radius: 5px;
@@ -45,7 +45,7 @@
 }
 
 .button:hover {
-    background-color: #45a049;
+    background-color: #4c95af;
 }
 
 .warn-container {

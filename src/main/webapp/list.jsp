@@ -11,7 +11,7 @@
 <div class="container">
     <nav class="sidebar">
         <ul>
-            <button onclick="location.href='greeting'">Главная</button>
+            <button onclick="location.href='greeting.jsp'">Главная</button>
             <button onclick="location.href='list-chats'" aria-pressed="true">Мессенджер</button>
             <button onclick="location.href='select-chat'">Подбор собеседника</button>
             <button onclick="location.href='logout'">Выход</button>
@@ -28,10 +28,10 @@
             <c:if test="${chats != null && !chats.isEmpty()}">
                 <ul>
                     <c:forEach var="chat" items="${chats}">
-                        <img src="${pageContext.request.contextPath}/avatars?chatId=${chat.getIdChat()}"
-                             alt="avatar"
-                             style="width: 30px; height: 30px; border-radius: 30%; object-fit: cover;">
-                        <li><a href="chat?ID_CHAT=${chat.getIdChat()}">${chat.getName()}</a></li>
+                        <li class="chat-item">
+                            <img src="${pageContext.request.contextPath}/avatars?chatId=${chat.getIdChat()}" alt="avatar" class="chat-avatar">
+                            <a href="chat?ID_CHAT=${chat.getIdChat()}" class="chat-link">${chat.getName()}</a>
+                        </li>
                     </c:forEach>
                 </ul>
             </c:if>

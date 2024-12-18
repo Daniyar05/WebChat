@@ -51,7 +51,7 @@
 <div class="container">
     <nav class="sidebar">
         <ul>
-            <button onclick="location.href='greeting'">Главная</button>
+            <button onclick="location.href='greeting.jsp'">Главная</button>
             <button onclick="location.href='list-chats'">Мессенджер</button>
             <button onclick="location.href='select-chat'" aria-pressed="true">Подбор собеседника</button>
             <button onclick="location.href='logout'">Выход</button>

@@ -7,9 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.webchat.domain.User;
-import org.webchat.repository.ChatsRepo;
 import org.webchat.repository.UserRepo;
-import org.webchat.usecase.Root;
 
 import java.io.IOException;
 import java.util.UUID;

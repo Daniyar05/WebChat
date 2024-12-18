@@ -17,6 +17,7 @@ import org.webchat.mapper.impl.UserMapperImpl;
 import org.webchat.repository.Impl.ChatRepoImpl;
 import org.webchat.repository.Impl.UserMoodsRepoImpl;
 import org.webchat.repository.Impl.UsersRepoImpl;
+import org.webchat.repository.UserRepo;
 import org.webchat.service.ChatsService;
 import org.webchat.service.FileService;
 import org.webchat.service.impl.ChatService;
@@ -54,7 +55,7 @@ public class MainServletContextListener implements ServletContextListener {
         UserMoodsRepoImpl userMoodsRepo = new UserMoodsRepoImpl(databaseConnection);
         context.setAttribute("userMoodsRepo", userMoodsRepo);
 
-        UsersRepoImpl usersRepo = new UsersRepoImpl(databaseConnection);
+        UserRepo usersRepo = new UsersRepoImpl(databaseConnection);
         context.setAttribute("usersRepo", usersRepo);
 
         UserManager userManager = new UserManager(databaseConnection);
@@ -66,7 +67,7 @@ public class MainServletContextListener implements ServletContextListener {
         UserMapper userMapper = new UserMapperImpl();
         context.setAttribute("userMapper", userMapper);
 
-        ChatService chatService = new ChatService();
+        ChatService chatService = new ChatService(chatRepo, usersRepo);
         context.setAttribute("chatService", chatService);
 
 

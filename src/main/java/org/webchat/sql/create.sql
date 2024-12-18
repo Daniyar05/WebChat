@@ -12,7 +12,9 @@ CREATE TABLE IF NOT EXISTS messages (
                                         id_chat VARCHAR(255) NOT NULL REFERENCES chats(id_chat),
                                         id_from VARCHAR(255) NOT NULL,
                                         content TEXT,
-                                        date TIMESTAMP);
+                                        date TIMESTAMP
+                                        
+                                    );
 
 CREATE TABLE IF NOT EXISTS user_chats (
                                           id_user VARCHAR(255) NOT NULL REFERENCES users(id_user),

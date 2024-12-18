@@ -12,17 +12,17 @@ h1, h2, h3 {
 }
 
 a {
-    color: #64b5f6;
+    color: #100303;
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
 a:hover {
-    color: #1e88e5;
+    color: #0f1920;
 }
 
 button {
-    background-color: #1e88e5;
+    background-color: #2e2e35;
     color: white;
     border: none;
     border-radius: 5px;
@@ -32,7 +32,7 @@ button {
 }
 
 button:hover {
-    background-color: #1565c0;
+    background-color: #348713;
 }
 
 input, textarea, select {
@@ -59,14 +59,14 @@ input, textarea, select {
 .btn {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #1e88e5;
+    background-color: #9cbde1;
     color: #fff;
     border-radius: 5px;
     text-align: center;
 }
 
 .btn:hover {
-    background-color: #1565c0;
+    background-color: #100303;
 }
 
 
@@ -110,7 +110,7 @@ body {
 }
 
 .sidebar button:hover, .sidebar button[aria-pressed="true"] {
-    background-color: #4caf50;
+    background-color: #1b1616;
     color: white;
 }
 
