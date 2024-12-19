@@ -1,20 +1,17 @@
 package org.webchat.db;
 
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import lombok.Getter;
 
 import javax.sql.DataSource;
 import java.sql.*;
 
+@Getter
 public class DatabaseConnection {
-
-    public DataSource getDataSource() {
-        return dataSource;
-    }
-
     DataSource dataSource;
-
 
     public DatabaseConnection() {
         dataSource=getDatasource();
@@ -36,8 +33,9 @@ public class DatabaseConnection {
 
     public MongoClient getMongoClient(){
         ConfigurationBD configuration = ConfigurationBD.getConnection();
-
-        return new MongoClient(configuration.getMONGO_HOST(), Integer.parseInt(configuration.getMONGO_PORT()));
+//        return new MongoClient();
+        MongoClientURI uri = new MongoClientURI("mongodb://root:12345678@%s:%s/".formatted(configuration.getMONGO_HOST(), Integer.parseInt(configuration.getMONGO_PORT())));
+        return new MongoClient(uri);
     }
 
     public Connection getConnection() throws SQLException {

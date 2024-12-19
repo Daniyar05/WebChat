@@ -37,17 +37,13 @@ public class MongoFileRepositoryImpl implements MongoFileRepository {
     }
 
     @Override
-    public byte[] getFile(String id) {
+    public byte[] getFile(String id) throws FileNotFoundException {
         Document selector = new Document("id", id);
         Document result = mongoCollection.find(selector).first();
         if(result != null) {
             return result.get("file", Binary.class).getData();
         }
-        try {
-            throw new FileNotFoundException();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        throw new FileNotFoundException();
     }
 
     @Override

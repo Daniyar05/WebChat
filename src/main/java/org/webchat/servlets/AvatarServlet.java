@@ -42,7 +42,7 @@ public class AvatarServlet extends HttpServlet {
 
         } catch (Exception e) {
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-
+            e.printStackTrace();
         }
     }
 
