@@ -2,7 +2,9 @@ package org.webchat.repository;
 
 import org.webchat.domain.Chat;
 import org.webchat.domain.Message;
+import org.webchat.domain.User;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface ChatRepo {
@@ -16,4 +18,6 @@ public interface ChatRepo {
     boolean addMessage(String chatId, Message message);
 
     boolean hasUserById(String userId, String chatId);
+
+    List<String> findAllUsersInChat(String chatId);
 }

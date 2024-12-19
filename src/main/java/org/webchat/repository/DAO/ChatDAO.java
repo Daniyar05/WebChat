@@ -2,7 +2,9 @@ package org.webchat.repository.DAO;
 
 import org.webchat.domain.Chat;
 import org.webchat.domain.Message;
+import org.webchat.domain.User;
 
+import java.util.List;
 import java.util.Optional;
 
 //TODO Дописать interfaces for DAOs
@@ -17,4 +19,6 @@ public interface ChatDAO {
 
 
     boolean hasUserById(String userId, String chatId);
+
+    List<String> getUsersInChatById(String chatId);
 }

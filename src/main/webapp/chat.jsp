@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <script src="<c:url value="/JavaScript/functions.js"/>"></script>
+<%--    <script src="<c:url value="/JavaScript/functions.js"/>"></script>--%>
     <title>Чат: <c:out value="${chat.name}" /></title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/chat.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/main.css">
@@ -54,7 +54,7 @@
                     <textarea id="message-input" name="content" placeholder="Введите сообщение" required></textarea>
                 </label>
                 <input type="hidden" name="chatId" value="<c:out value='${chat.idChat}' />"/>
-                <button type="submit">Отправить</button>
+                <button id='button' type="submit">Отправить</button>
             </form>
             <button onclick="deleteChat('<c:out value='${chat.idChat}' />', '<c:url value='/' />')">Delete Chat</button>
         </div>
@@ -66,23 +66,65 @@
     </aside>
 </div>
 <c:set var="chatId" value="<c:out value='${chat.idChat}' />" />
-<script src="<c:url value='/JavaScript/chat-function.js' />"></script>
-<script src="<c:url value='/JavaScript/chat-ajax.js' />"></script>
-<script>
-    document.getElementById("update-avatar-form").addEventListener("submit", function (event) {
-        event.preventDefault();
-        const formData = new FormData(this);
+<%--<script src="<c:url value='/JavaScript/chat-function.js' />"></script>--%>
+<%--<script src="<c:url value='/JavaScript/chat-ajax.js' />"></script>--%>
 
-        fetch(this.action, {
-            method: 'POST',
-            body: formData,
-        })
-            .then(response => {
-                if (response.ok) {
-                    location.reload();
-                }
-            })
-    });
+<script>
+    console.log("Script started");
+    const url1 = new URL(window.location.href);
+    const websocketUrl = 'ws://' + url1.host + '${pageContext.request.contextPath}/websocket';
+    var ws = new WebSocket(websocketUrl);
+    ws.onopen = function () {
+        console.log("Connected to ws")
+    }
+    ws.onerror = function () {
+        console.log("Error with ws")
+    }
+    ws.onmessage = function processMessage(message) {
+        console.log("Got message " + JSON.stringify(message.data));
+        var json = JSON.parse(message.data);
+        if(json.chatId === '${chat.idChat}') {
+            const messageBlock = document.getElementById('chat-box');
+            // const br = document.createElement('<br/>');
+            messageBlock.innerText += json.userName +'> '+ json.message;
+            messageBlock.innerHTML+='<br/>';
+            // messageBlock.appendChild(br);
+            // messageBlock.innerHTML += json.authorAvatarId + '" width="50" height="50"/>' + json.userName + ': ' + json.message + '<br/>';
+        }
+    }
+    document.getElementById('button').onclick = function() {
+        var textFieldValue = document.getElementById('message-input').value;
+        document.getElementById('message-input').value = ""
+        myFunction(textFieldValue);
+    };
+
+    function myFunction(value) {
+        console.log("Нажали на кнопку и передали " + value);
+        var sendJs = {
+            "chatId": '${chat.idChat}',
+            "message": value,
+            "userId": '${userId}'
+        };
+        var sendJsString = JSON.stringify(sendJs);
+        console.log("Отправляю " + sendJsString);
+        ws.send(sendJsString);
+    }
 </script>
+<%--<script>--%>
+<%--    document.getElementById("update-avatar-form").addEventListener("submit", function (event) {--%>
+<%--        event.preventDefault();--%>
+<%--        const formData = new FormData(this);--%>
+
+<%--        fetch(this.action, {--%>
+<%--            method: 'POST',--%>
+<%--            body: formData,--%>
+<%--        })--%>
+<%--            .then(response => {--%>
+<%--                if (response.ok) {--%>
+<%--                    location.reload();--%>
+<%--                }--%>
+<%--            })--%>
+<%--    });--%>
+<%--</script>--%>
 </body>
 </html>

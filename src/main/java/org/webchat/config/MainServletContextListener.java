@@ -23,11 +23,13 @@ import org.webchat.service.FileService;
 import org.webchat.service.impl.ChatService;
 import org.webchat.service.impl.FileServiceImpl;
 import org.webchat.service.impl.MongoFileService;
+import org.webchat.servlets.ChatCommunicationWebSocketHandler;
 import org.webchat.servlets.LoginServlet;
 import org.webchat.usecase.ChatCleaner;
 import org.webchat.usecase.UserManager;
 
 import java.sql.Timestamp;
+
 
 @Slf4j
 @WebListener
@@ -60,7 +62,11 @@ public class MainServletContextListener implements ServletContextListener {
 
         UserRepo usersRepo = new UsersRepoImpl(databaseConnection);
         context.setAttribute("usersRepo", usersRepo);
+        ru.itis.servlet.ChatWebSocketServlet.setChatRepository(chatRepo);
+        ru.itis.servlet.ChatWebSocketServlet.setUserRepository(usersRepo);
 
+//        ChatCommunicationWebSocketHandler.setChatRepository(chatRepository);
+//        ChatCommunicationWebSocketHandler.setUserRepository(userRepository);
         UserManager userManager = new UserManager(userMoodsRepo);
         context.setAttribute("userManager", userManager);
 

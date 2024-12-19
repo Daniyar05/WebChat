@@ -169,6 +169,27 @@ public class ChatDAOImpl implements ChatDAO {
         }
         return false;
     }
+
+    @Override
+    public List<String> getUsersInChatById(String chatId) {
+        String query = "SELECT id_user FROM user_chats WHERE id_chat = ?";
+        List<String> users = new ArrayList<>();
+
+        try (Connection connection = databaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setString(1, chatId);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                users.add(resultSet.getString("id_user"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
+
     private Optional<User> getUser(String idUser) {
         String userQuery = "SELECT * FROM users WHERE id_user = ?";
         String userChatsQuery = "SELECT id_chat FROM user_chats WHERE id_user = ?";

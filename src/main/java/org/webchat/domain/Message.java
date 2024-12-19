@@ -1,5 +1,7 @@
 package org.webchat.domain;
 
+import lombok.Builder;
+
 import java.util.Date;
 
 public final class Message  {

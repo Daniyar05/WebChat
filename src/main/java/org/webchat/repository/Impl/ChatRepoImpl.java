@@ -3,6 +3,7 @@ package org.webchat.repository.Impl;
 
 import org.webchat.domain.Chat;
 import org.webchat.domain.Message;
+import org.webchat.domain.User;
 import org.webchat.repository.DAO.ChatDAO;
 import org.webchat.repository.ChatRepo;
 
@@ -44,5 +45,10 @@ public class ChatRepoImpl implements ChatRepo {
         return chatDAO.deleteChat(idChat);
     }
     public boolean hasUserById(String userId, String chatId){return chatDAO.hasUserById(userId, chatId);}
+
+    @Override
+    public List<String> findAllUsersInChat(String chatId) {
+        return chatDAO.getUsersInChatById(chatId);
+    }
 
 }
