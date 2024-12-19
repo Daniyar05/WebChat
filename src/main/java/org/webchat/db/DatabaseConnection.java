@@ -1,5 +1,6 @@
 package org.webchat.db;
 
+import com.mongodb.MongoClient;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -31,6 +32,12 @@ public class DatabaseConnection {
             throw new RuntimeException(e);
         }
         return new HikariDataSource(config);
+    }
+
+    public MongoClient getMongoClient(){
+        ConfigurationBD configuration = ConfigurationBD.getConnection();
+
+        return new MongoClient(configuration.getMONGO_HOST(), Integer.parseInt(configuration.getMONGO_PORT()));
     }
 
     public Connection getConnection() throws SQLException {

@@ -1,5 +1,6 @@
 package org.webchat.config;
 
+import com.mongodb.MongoClient;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
@@ -13,14 +14,20 @@ import org.webchat.mapper.impl.UserMapperImpl;
 import org.webchat.repository.DAO.ChatDAO;
 import org.webchat.repository.DAO.Impl.ChatDAOImpl;
 import org.webchat.repository.Impl.ChatRepoImpl;
+import org.webchat.repository.Impl.MongoFileRepositoryImpl;
 import org.webchat.repository.Impl.UserMoodsRepoImpl;
 import org.webchat.repository.Impl.UsersRepoImpl;
+import org.webchat.repository.MongoFileRepository;
 import org.webchat.repository.UserRepo;
 import org.webchat.service.FileService;
 import org.webchat.service.impl.ChatService;
 import org.webchat.service.impl.FileServiceImpl;
+import org.webchat.service.impl.MongoFileService;
 import org.webchat.servlets.LoginServlet;
+import org.webchat.usecase.ChatCleaner;
 import org.webchat.usecase.UserManager;
+
+import java.sql.Timestamp;
 
 @Slf4j
 @WebListener
@@ -57,8 +64,8 @@ public class MainServletContextListener implements ServletContextListener {
         UserManager userManager = new UserManager(userMoodsRepo);
         context.setAttribute("userManager", userManager);
 
-        FileService fileService = new FileServiceImpl();
-        context.setAttribute("fileService", fileService);
+//        FileService fileService = new FileServiceImpl();
+//        context.setAttribute("fileService", fileService);
 
         UserMapper userMapper = new UserMapperImpl(usersRepo);
         context.setAttribute("userMapper", userMapper);
@@ -66,10 +73,15 @@ public class MainServletContextListener implements ServletContextListener {
         ChatService chatService = new ChatService(chatRepo, usersRepo);
         context.setAttribute("chatService", chatService);
 
+        ChatCleaner chatCleaner = new ChatCleaner(databaseConnection, log);
+        chatCleaner.start(1000*60);
 
-//        ChatMapper chatMapper = new ChatMapperImpl();
-//        MessageMapper messageMapper = new MessageMapperImpl();
+        MongoClient mongoClient = databaseConnection.getMongoClient();
+        context.setAttribute("mongoClient", mongoClient);
 
+        MongoFileRepository mongoFileRepository = new MongoFileRepositoryImpl(mongoClient);
+        FileService fileService = new MongoFileService(mongoFileRepository,"0");
+        context.setAttribute("fileService", fileService);
 
 
     }
@@ -78,5 +90,6 @@ public class MainServletContextListener implements ServletContextListener {
     public void contextDestroyed(ServletContextEvent sce) {
         log.info("-=-=-=-=-=-=-=-=- CONTEXT DESTROYED -==-=-=-=-=-=-=-=-=");
     }
+
 
 }

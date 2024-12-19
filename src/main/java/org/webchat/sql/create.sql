@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS chats (
                                      id_chat VARCHAR(255) PRIMARY KEY,
                                      name VARCHAR(255) NOT NULL
 );
+ALTER TABLE chats ADD COLUMN created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
 
 CREATE TABLE IF NOT EXISTS messages (
                                         id_message SERIAL PRIMARY KEY,

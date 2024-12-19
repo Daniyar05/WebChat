@@ -1,32 +1,28 @@
 package org.webchat.db;
 
+import lombok.Getter;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-
+@Getter
 public class ConfigurationBD {
 
     private final String USER;
     private final String PASSWORD;
     private final String URL;
 
-    public ConfigurationBD(String user, String password, String url) {
+    private final String MONGO_HOST;
+    private final String MONGO_PORT;
+
+
+    public ConfigurationBD(String user, String password, String url, String mongoHost, String mongoPort) {
         USER = user;
         PASSWORD = password;
         URL = url;
-    }
-
-    public String getUSER() {
-        return USER;
-    }
-
-    public String getPASSWORD() {
-        return PASSWORD;
-    }
-
-    public String getURL() {
-        return URL;
+        MONGO_HOST = mongoHost;
+        MONGO_PORT = mongoPort;
     }
 
     public static ConfigurationBD getConnection(){
@@ -42,7 +38,9 @@ public class ConfigurationBD {
         return new ConfigurationBD(
                 properties.getProperty("db.user"),
                 properties.getProperty("db.password"),
-                properties.getProperty("db.url") + properties.getProperty("db.dbname")
-        );
+                properties.getProperty("db.url") + properties.getProperty("db.dbname"),
+                properties.getProperty("mongo.host"),
+                properties.getProperty("mongo.port")
+                );
     }
 }

@@ -1,39 +1,3 @@
-<%--<%@ page contentType="text/html;charset=UTF-8"%>--%>
-<%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
-
-<%--<html>--%>
-<%--<head>--%>
-<%--    <title>Подбор собеседника</title>--%>
-<%--    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/error.css">--%>
-<%--    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/main.css">--%>
-<%--    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/select-chat.css">--%>
-<%--</head>--%>
-<%--<body>--%>
-
-<%--<c:if test="${notFoundException == 'true'}">--%>
-<%--    <div class="warn-container">--%>
-<%--        <h1>Warning</h1>--%>
-<%--        <p>Нет подходящего собеседника</p>--%>
-<%--    </div>--%>
-<%--</c:if>--%>
-
-<%--<div class="container">--%>
-<%--    <h2>Найти собеседника</h2>--%>
-<%--    <form method="post" action="select-chat">--%>
-<%--        <label for="mood">Выберите своё настроение:</label>--%>
-<%--        <select id="mood" name="mood" class="select-field">--%>
-<%--            <option value="happy">Счастливый</option>--%>
-<%--            <option value="sad">Грустный</option>--%>
-<%--            <option value="excited">Взволнованный</option>--%>
-<%--            <option value="calm">Спокойный</option>--%>
-<%--            <!-- Добавление других опций при необходимости -->--%>
-<%--        </select>--%>
-<%--        <button type="submit" class="button">Начать поиск</button>--%>
-<%--    </form>--%>
-<%--</div>--%>
-<%--</body>--%>
-<%--</html>--%>
-
 
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -71,7 +35,7 @@
             <form method="post" action="select-chat">
                 <label for="mood">Выберите своё настроение:</label>
                 <select id="mood" name="mood" class="select-field">
-                    <option value="happy">Счастливый</option>
+                    <option value="happy">Весёлый</option>
                     <option value="sad">Грустный</option>
                     <option value="excited">Взволнованный</option>
                     <option value="calm">Спокойный</option>
