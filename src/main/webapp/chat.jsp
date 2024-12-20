@@ -67,11 +67,9 @@
     </aside>
 </div>
 <c:set var="chatId" value="<c:out value='${chat.idChat}' />" />
-<%--<script src="<c:url value='/JavaScript/chat-function.js' />"></script>--%>
 <script src="<c:url value='/JavaScript/chat-ajax.js' />"></script>
 
 <script>
-    console.log("Script started");
     const url1 = new URL(window.location.href);
     const websocketUrl = 'ws://' + url1.host + '${pageContext.request.contextPath}/websocket';
     var ws = new WebSocket(websocketUrl);
@@ -82,7 +80,6 @@
         console.log("Error with ws")
     }
     ws.onmessage = function processMessage(message) {
-        console.log("Got message " + JSON.stringify(message.data));
         var json = JSON.parse(message.data);
         if(json.chatId === '${chat.idChat}') {
             const messageBlock = document.getElementById('chat-box');
@@ -92,31 +89,23 @@
             messageDiv.innerText += json.username.trim() +'> '+ json.message.trim();
             fragment.append(messageDiv)
             messageBlock.append(fragment)
-            // messageBlock.innerHTML+='<br/>';
-            // messageBlock.appendChild(br);
-            // messageBlock.innerHTML += json.authorAvatarId + '" width="50" height="50"/>' + json.userName + ': ' + json.message + '<br/>';
         }
     }
     document.getElementById('button').onclick = function() {
         var textFieldValue = document.getElementById('message-input').value;
         document.getElementById('message-input').value = ""
         if(textFieldValue.trim() !== '') {
-            myFunction(textFieldValue.trim());
+            var sendJs = {
+                "chatId": '${chat.idChat}',
+                "message": value,
+                "userId": '${userId}',
+                "username":'${username}'
+            };
+            var sendJsString = JSON.stringify(sendJs);
+            ws.send(sendJsString);
         }
     };
 
-    function myFunction(value) {
-        console.log("Нажали на кнопку и передали " + value);
-        var sendJs = {
-            "chatId": '${chat.idChat}',
-            "message": value,
-            "userId": '${userId}',
-            "username":'${username}'
-        };
-        var sendJsString = JSON.stringify(sendJs);
-        console.log("Отправляю " + sendJsString);
-        ws.send(sendJsString);
-    }
 </script>
 <script>
     document.getElementById("update-avatar-form").addEventListener("submit", function (event) {

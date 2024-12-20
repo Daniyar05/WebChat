@@ -8,7 +8,6 @@ const context = chatBox.getAttribute('context');
 
 fetchMessages(offset, limit);
 
-// checkNoScroll(chatBox);
 const loadedMessages = new Set();
 function fetchMessages(offset, limit, prepend = false) {
     if (isLoading) return;
@@ -34,7 +33,7 @@ function fetchMessages(offset, limit, prepend = false) {
                 const messageDiv = document.createElement('div');
                 const uniqueKey = `${message.userFrom.username}:${message.content}:${new Date(message.date).toISOString()}`;
                 if (!loadedMessages.has(uniqueKey)) {
-                    loadedMessages.add(uniqueKey); // Добавляем уникальный идентификатор в Set
+                    loadedMessages.add(uniqueKey);
                     const usernameText = document.createElement("strong");
                     usernameText.innerText = message.userFrom.username
                     messageDiv.appendChild(usernameText)
@@ -64,19 +63,17 @@ function fetchMessages(offset, limit, prepend = false) {
 
 }
 
-
 function scrollToBottom() {
     if (chatBox) {
         chatBox.scrollTop = chatBox.scrollHeight;
     }
 }
 
-
 chatBox.addEventListener('scroll', () => {
     console.log('scrolling up')
-    if (chatBox.scrollTop < 100 && !isLoading) { //FIXME
+    if (chatBox.scrollTop < 100 && !isLoading) {
         fetchMessages(offset, limit, true);
-        offset += limit; // Увеличиваем отступ
+        offset += limit;
     }
 });
 

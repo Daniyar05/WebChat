@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 
 @Getter
@@ -32,7 +31,6 @@ public class Chat {
     }
 
     public Optional<List<Message>> getHistory(int offset, int limit) {
-//        getHistory().forEach(System.out::println);
         int size = history.size();
         if (offset > size){return Optional.of(new ArrayList<>());}
         List<Message> tempList = new ArrayList<>();

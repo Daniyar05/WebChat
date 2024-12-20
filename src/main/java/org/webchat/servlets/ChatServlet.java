@@ -8,7 +8,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import org.webchat.config.ConfigurationChat;
 import org.webchat.domain.Chat;
 import org.webchat.domain.Message;
 import org.webchat.domain.User;
@@ -16,7 +15,6 @@ import org.webchat.repository.UserRepo;
 import org.webchat.service.impl.ChatService;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
