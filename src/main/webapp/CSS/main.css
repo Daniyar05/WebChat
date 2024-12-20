@@ -32,7 +32,8 @@ button {
 }
 
 button:hover {
-    background-color: #348713;
+    background-color: white;
+    color: black;
 }
 
 input, textarea, select {
@@ -67,6 +68,7 @@ input, textarea, select {
 
 .btn:hover {
     background-color: #100303;
+    color: white;
 }
 
 
@@ -110,8 +112,8 @@ body {
 }
 
 .sidebar button:hover, .sidebar button[aria-pressed="true"] {
-    background-color: #1b1616;
-    color: white;
+    background-color: gray;
+    color: black;
 }
 
 .content {

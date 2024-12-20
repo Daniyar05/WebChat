@@ -36,7 +36,7 @@
 .button {
     padding: 10px 20px;
     font-size: 16px;
-    background-color: #8aead6;
+    background-color: gray;
     color: white;
     border: none;
     border-radius: 5px;
@@ -45,7 +45,8 @@
 }
 
 .button:hover {
-    background-color: #4c95af;
+    background-color: whitesmoke;
+    color: black;
 }
 
 .warn-container {

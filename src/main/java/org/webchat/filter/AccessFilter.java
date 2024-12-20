@@ -30,7 +30,6 @@ public class AccessFilter implements Filter {
 
         String uri = request.getRequestURI();
         String path = uri.substring(request.getContextPath().length());
-        System.out.println(uri);
         if (!isUserAuth(request)) {
             filterChain.doFilter(servletRequest, servletResponse);
             return;

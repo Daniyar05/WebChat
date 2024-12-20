@@ -20,9 +20,9 @@ import java.util.*;
 @ServerEndpoint(value = "/ws", configurator = WebSocketConfigurer.class)
 public class ChatCommunicationWebSocketHandler {
 
-    private static Map<String, Session> sessions = Collections.synchronizedMap(new HashMap<>());
+    private static final Map<String, Session> sessions = Collections.synchronizedMap(new HashMap<>());
 
-    private ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Setter
     public static ChatRepo chatRepository;

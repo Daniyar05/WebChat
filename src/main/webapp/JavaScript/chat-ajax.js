@@ -41,11 +41,8 @@ function fetchMessages(offset, limit, prepend = false) {
                     messageText.innerText = `> ${message.content.trim()}`
                     // messageText.innerHTML+='<br/>';
                     messageDiv.appendChild(messageText)
-                    if (prepend) {
-                        fragment.prepend(messageDiv);
-                    } else {
-                        fragment.append(messageDiv);
-                    }
+                    fragment.append(messageDiv);
+
                 }
             });
 
