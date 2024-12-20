@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class WebSocketMessage {
 
     private String userId;
-
+    private String username;
     private String chatId;
 
     private String message;

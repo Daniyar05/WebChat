@@ -29,13 +29,6 @@ public class ChatService {
     public List<Message> getMessages(String chatId, int offset, int limit) {
         Optional<Chat> chat = chatRepo.getChat(chatId);
         return chat.flatMap(c -> c.getHistory(offset, limit)).orElse(List.of());
-//            return chat.flatMap(c ->
-//                            c.getHistory(offset, limit)
-//                                    .stream()
-//                                    .sorted(Comparator.comparing(Message::getDate)) // Сортировка по дате
-//                                    .toList()
-//                    ).orElse(List.of());
-
     }
 
     public void addMessage(String chatId, Message message) {

@@ -1,5 +1,4 @@
 function deleteChat(chatId, context) {
-
     fetch("edit-chat", {
         method: "DELETE",
         headers: {
@@ -23,7 +22,7 @@ function deleteAvatar(chatId, contextPath) {
     })
         .then(response => {
             if (response.ok) {
-                location.reload(); // Обновляем страницу
+                location.reload();
             }
         })
 }

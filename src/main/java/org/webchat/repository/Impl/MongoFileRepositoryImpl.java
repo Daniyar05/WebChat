@@ -32,6 +32,7 @@ public class MongoFileRepositoryImpl implements MongoFileRepository {
         }
         Document document = new Document("file", data)
                 .append("id", id);
+        delete(id);
         mongoCollection.insertOne(document);
         return id;
     }

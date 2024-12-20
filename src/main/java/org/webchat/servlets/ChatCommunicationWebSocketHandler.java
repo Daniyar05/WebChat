@@ -3,15 +3,12 @@ package org.webchat.servlets;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Setter;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import jakarta.websocket.*;
 import jakarta.websocket.server.ServerEndpoint;
 import org.webchat.config.WebSocketConfigurer;
 import org.webchat.domain.Message;
-import org.webchat.domain.User;
-import org.webchat.dto.UserDto;
 import org.webchat.dto.WebSocketMessage;
 import org.webchat.repository.ChatRepo;
 import org.webchat.repository.UserRepo;

@@ -16,6 +16,7 @@ import org.webchat.repository.UserRepo;
 import org.webchat.service.impl.ChatService;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -58,9 +59,9 @@ public class ChatServlet extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
-
+        System.out.println(offset+"----===---"+limit);
         List<Message> messages = chatService.getMessages(chatId, offset, limit);
-
+//        Collections.reverse(messages);
         response.setContentType("application/json");
         response.getWriter().write(new Gson().toJson(messages));
     }
@@ -82,7 +83,7 @@ public class ChatServlet extends HttpServlet {
         if (chatOptional.isPresent()) {
             Chat chat = chatOptional.get();
             request.setAttribute("chat", chat);
-            request.setAttribute("messagesJson", new Gson().toJson(chatService.getMessages(chatId, 0, ((ConfigurationChat) getServletContext().getAttribute("configurationChat")).getLIMIT_MESSAGE())));
+            request.setAttribute("username", request.getSession().getAttribute("username"));
             request.getRequestDispatcher("/chat.jsp").forward(request, response);
         }
     }
