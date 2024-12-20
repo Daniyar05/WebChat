@@ -12,7 +12,7 @@ const loadedMessages = new Set();
 function fetchMessages(offset, limit, prepend = false) {
     if (isLoading) return;
     isLoading = true;
-    console.log("fetching message")
+    // console.log("fetching message")
     fetch(`${context}/chat?ID_CHAT=${chatId}&offset=${offset}&limit=${limit}`, {
         headers: {
             'X-Type-Request': 'AjaxRequest', // Указание, что это AJAX-запрос
@@ -70,7 +70,6 @@ function scrollToBottom() {
 }
 
 chatBox.addEventListener('scroll', () => {
-    console.log('scrolling up')
     if (chatBox.scrollTop < 100 && !isLoading) {
         fetchMessages(offset, limit, true);
         offset += limit;

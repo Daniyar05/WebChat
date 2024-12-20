@@ -50,7 +50,8 @@
             </div>
             <button id="scroll-to-bottom" class="scroll-button" onclick="scrollToBottom()">↓</button>
 
-            <form id="message-form" method="post" action="chat?ID_CHAT=<c:out value='${chat.idChat}' />">
+            <form id="message-form" method="post">
+<%--                action="chat?ID_CHAT=<c:out value='${chat.idChat}' />--%>
                 <label>
                     <textarea id="message-input" name="content" placeholder="Введите сообщение" required></textarea>
                 </label>
@@ -93,17 +94,18 @@
     }
     document.getElementById('button').onclick = function() {
         var textFieldValue = document.getElementById('message-input').value;
-        document.getElementById('message-input').value = ""
         if(textFieldValue.trim() !== '') {
             var sendJs = {
                 "chatId": '${chat.idChat}',
-                "message": value,
+                "message": textFieldValue,
                 "userId": '${userId}',
                 "username":'${username}'
             };
             var sendJsString = JSON.stringify(sendJs);
             ws.send(sendJsString);
         }
+        document.getElementById('message-input').value = ""
+
     };
 
 </script>

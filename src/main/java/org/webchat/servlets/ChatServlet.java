@@ -57,9 +57,7 @@ public class ChatServlet extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
-        System.out.println(offset+"----===---"+limit);
         List<Message> messages = chatService.getMessages(chatId, offset, limit);
-//        Collections.reverse(messages);
         response.setContentType("application/json");
         response.getWriter().write(new Gson().toJson(messages));
     }

@@ -21,14 +21,12 @@ import org.webchat.repository.MongoFileRepository;
 import org.webchat.repository.UserRepo;
 import org.webchat.service.FileService;
 import org.webchat.service.impl.ChatService;
-import org.webchat.service.impl.FileServiceImpl;
 import org.webchat.service.impl.MongoFileService;
-import org.webchat.servlets.ChatCommunicationWebSocketHandler;
+import org.webchat.servlets.ChatWebSocketServlet;
 import org.webchat.servlets.LoginServlet;
 import org.webchat.usecase.ChatCleaner;
 import org.webchat.usecase.UserManager;
 
-import java.sql.Timestamp;
 
 
 @Slf4j
@@ -62,16 +60,11 @@ public class MainServletContextListener implements ServletContextListener {
 
         UserRepo usersRepo = new UsersRepoImpl(databaseConnection);
         context.setAttribute("usersRepo", usersRepo);
-        ru.itis.servlet.ChatWebSocketServlet.setChatRepository(chatRepo);
-        ru.itis.servlet.ChatWebSocketServlet.setUserRepository(usersRepo);
+        ChatWebSocketServlet.setChatRepository(chatRepo);
+        ChatWebSocketServlet.setUserRepository(usersRepo);
 
-//        ChatCommunicationWebSocketHandler.setChatRepository(chatRepository);
-//        ChatCommunicationWebSocketHandler.setUserRepository(userRepository);
         UserManager userManager = new UserManager(userMoodsRepo);
         context.setAttribute("userManager", userManager);
-
-//        FileService fileService = new FileServiceImpl();
-//        context.setAttribute("fileService", fileService);
 
         UserMapper userMapper = new UserMapperImpl(usersRepo);
         context.setAttribute("userMapper", userMapper);
@@ -89,13 +82,5 @@ public class MainServletContextListener implements ServletContextListener {
         FileService fileService = new MongoFileService(mongoFileRepository,"0");
         context.setAttribute("fileService", fileService);
 
-
     }
-
-    @Override
-    public void contextDestroyed(ServletContextEvent sce) {
-        log.info("-=-=-=-=-=-=-=-=- CONTEXT DESTROYED -==-=-=-=-=-=-=-=-=");
-    }
-
-
 }
