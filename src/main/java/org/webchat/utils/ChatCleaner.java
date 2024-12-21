@@ -2,31 +2,21 @@ package org.webchat.utils;
 
 import org.slf4j.Logger;
 import org.webchat.db.DatabaseConnection;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
+import org.webchat.repository.ChatRepo;
 
 public class ChatCleaner {
 
-    DatabaseConnection databaseConnection;
     private final Logger logger;
+    private final ChatRepo chatRepo;
 
-
-    public ChatCleaner(DatabaseConnection databaseConnection, Logger logger) {
-        this.databaseConnection = databaseConnection;
+    public ChatCleaner(Logger logger, ChatRepo chatRepo) {
         this.logger = logger;
+        this.chatRepo = chatRepo;
     }
 
 
     public void deleteOldChats() {
-        String query = "DELETE FROM chats WHERE created_at < NOW() - INTERVAL '1 day' ;";
-
-        try (Connection connection = databaseConnection.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.executeUpdate();
-        } catch (Exception e) {
-            logger.error("Ошибка при удалении старых чатов: {}", e.getMessage());
-        }
+        chatRepo.deleteOldChats();
     }
 
     public void start(int intervalMilliSec) {

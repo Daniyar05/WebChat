@@ -32,7 +32,7 @@ import org.webchat.utils.UserManager;
 @Slf4j
 @WebListener
 public class MainServletContextListener implements ServletContextListener {
-
+    private DatabaseConnection databaseConnection;
     @Override
     public void contextInitialized(ServletContextEvent sce) {
 
@@ -41,7 +41,7 @@ public class MainServletContextListener implements ServletContextListener {
         final Logger log = LoggerFactory.getLogger(LoginServlet.class);
         context.setAttribute("log", log);
 
-        final DatabaseConnection databaseConnection = new DatabaseConnection();
+        databaseConnection = new DatabaseConnection();
         context.setAttribute("databaseConnection", databaseConnection);
 
         final ConfigurationChat configurationChat = ConfigurationChat.getConfig();
@@ -72,7 +72,7 @@ public class MainServletContextListener implements ServletContextListener {
         ChatService chatService = new ChatService(chatRepo, usersRepo);
         context.setAttribute("chatService", chatService);
 
-        ChatCleaner chatCleaner = new ChatCleaner(databaseConnection, log);
+        ChatCleaner chatCleaner = new ChatCleaner(log, chatRepo);
         chatCleaner.start(1000*60);
 
         MongoClient mongoClient = databaseConnection.getMongoClient();
@@ -81,6 +81,10 @@ public class MainServletContextListener implements ServletContextListener {
         MongoFileRepository mongoFileRepository = new MongoFileRepositoryImpl(mongoClient);
         FileService fileService = new MongoFileService(mongoFileRepository,"0");
         context.setAttribute("fileService", fileService);
+    }
 
+    @Override
+    public void contextDestroyed(ServletContextEvent sce) {
+        databaseConnection.close();
     }
 }

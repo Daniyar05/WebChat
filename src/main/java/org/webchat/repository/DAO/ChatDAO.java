@@ -21,4 +21,6 @@ public interface ChatDAO {
     boolean hasUserById(String userId, String chatId);
 
     List<String> getUsersInChatById(String chatId);
+
+    void deleteOldChats();
 }

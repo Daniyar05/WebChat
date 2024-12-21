@@ -33,13 +33,14 @@ public class DatabaseConnection {
 
     public MongoClient getMongoClient(){
         ConfigurationBD configuration = ConfigurationBD.getConnection();
-//        return new MongoClient();
         MongoClientURI uri = new MongoClientURI("mongodb://root:12345678@%s:%s/".formatted(configuration.getMONGO_HOST(), Integer.parseInt(configuration.getMONGO_PORT())));
         return new MongoClient(uri);
     }
 
     public Connection getConnection() throws SQLException {
         return dataSource.getConnection();
-
+    }
+    public void close(){
+        ((HikariDataSource) dataSource).close();
     }
 }
