@@ -1,0 +1,130 @@
+body {
+    background-color: #123456;
+    color: #e0e0e0;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3 {
+    color: #f5f5f5;
+    margin-bottom: 10px;
+}
+
+a {
+    color: #100303;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #0f1920;
+}
+
+button {
+    background-color: #2e2e35;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: white;
+    color: black;
+}
+
+input, textarea, select {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    border: 1px solid #333;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+    width: calc(100% - 24px);
+}
+
+.container {
+    width: 80%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.button-container {
+    margin-top: 20px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #9cbde1;
+    color: #fff;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.btn:hover {
+    background-color: #100303;
+    color: white;
+}
+
+
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #121212;
+    color: #f5f5f5;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+}
+
+.sidebar, .left-part {
+    padding: 20px;
+    background-color: #1f1f1f;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.sidebar button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #2b2b2b;
+    color: #f5f5f5;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.3s ease;
+}
+
+.sidebar button:hover, .sidebar button[aria-pressed="true"] {
+    background-color: gray;
+    color: black;
+}
+
+.content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.left-part {
+    width: 15%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}

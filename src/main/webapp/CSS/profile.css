@@ -1,0 +1,39 @@
+
+.warn-container {
+    background-color: #d32f2f;
+    color: white;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+form {
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+form label {
+    display: block;
+    color: #bdbdbd;
+    margin-bottom: 5px;
+}
+
+form input {
+    margin-bottom: 15px;
+}
+
+h2 {
+    text-align: center;
+    color: #ffffff;
+    margin-top: 20px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}

@@ -1,22 +1,28 @@
 package org.webchat.domain;
 
+import lombok.Builder;
+
 import java.util.Date;
-import java.util.Objects;
 
-public final class Message {
-    private final Date data;
-    private final String idFrom;
+public final class Message  {
+    private final Date date;
     private final String content;
+    private final User userFrom;
 
-    public Message(String idFrom, String content) {
-        this.idFrom = idFrom;
+    public Message(User userFrom, String content) {
+        this.userFrom = userFrom;
         this.content = content;
-        data = new Date();
-
+        this.date = new Date();
     }
 
-    public String idFrom() {
-        return idFrom;
+    public Message(Date date, User userFrom, String content) {
+        this.date = date;
+        this.userFrom = userFrom;
+        this.content = content;
+    }
+
+    public User userFrom() {
+        return userFrom;
     }
 
 
@@ -24,29 +30,14 @@ public final class Message {
         return content;
     }
 
-//    @Override
-//    public boolean equals(Object obj) {
-//        if (obj == this) return true;
-//        if (obj == null || obj.getClass() != this.getClass()) return false;
-//        var that = (Message) obj;
-//        return Objects.equals(this.idFrom, that.idFrom) &&
-//                Objects.equals(this.idChat, that.idChat) &&
-//                Objects.equals(this.content, that.content);
-//    }
-
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(idFrom, idChat, content);
-//    }
-
     @Override
     public String toString() {
         return "Message[" +
-                "idFrom=" + idFrom + ", " +
+                "userFrom=" + userFrom + ", " +
                 "content=" + content + ']';
     }
 
     public Date getData() {
-        return data;
+        return date;
     }
 }
