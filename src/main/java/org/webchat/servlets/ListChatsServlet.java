@@ -9,7 +9,7 @@ import org.webchat.domain.Chat;
 import org.webchat.domain.User;
 import org.webchat.repository.ChatRepo;
 import org.webchat.repository.UserRepo;
-import org.webchat.usecase.ChatsLaunch;
+import org.webchat.utils.ChatsLaunch;
 
 import java.io.IOException;
 import java.util.Optional;

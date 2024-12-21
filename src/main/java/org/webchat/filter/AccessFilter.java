@@ -51,8 +51,7 @@ public class AccessFilter implements Filter {
             return user != null && chatId != null && chatRepo.findAllUsersInChat(chatId).contains(user.getId());
         } else if (path.startsWith("/avatars")) {
             String chatId = extractChatIdFromPath(request);
-            System.out.println(chatId);
-            if (chatId == null) return false;
+                if (chatId == null) return false;
             if (chatId.equals(" ")) return true;
             return user != null && (chatRepo.findAllUsersInChat(chatId).contains(user.getId()) || userRepo.getUser(chatId).isPresent());
         }

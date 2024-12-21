@@ -24,8 +24,8 @@ import org.webchat.service.impl.ChatService;
 import org.webchat.service.impl.MongoFileService;
 import org.webchat.servlets.ChatWebSocketServlet;
 import org.webchat.servlets.LoginServlet;
-import org.webchat.usecase.ChatCleaner;
-import org.webchat.usecase.UserManager;
+import org.webchat.utils.ChatCleaner;
+import org.webchat.utils.UserManager;
 
 
 

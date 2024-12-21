@@ -1,13 +1,10 @@
-package org.webchat.usecase;
+package org.webchat.utils;
 
 import org.slf4j.Logger;
 import org.webchat.db.DatabaseConnection;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.Timestamp;
-import java.util.concurrent.CompletableFuture;
 
 public class ChatCleaner {
 

@@ -7,8 +7,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.webchat.repository.ChatRepo;
 import org.webchat.repository.UserRepo;
-import org.webchat.usecase.CreateChatForTwoUser;
-import org.webchat.usecase.UserManager;
+import org.webchat.utils.CreateChatForTwoUser;
+import org.webchat.utils.UserManager;
 
 import java.io.IOException;
 

@@ -1,9 +1,7 @@
-package org.webchat.usecase;
+package org.webchat.utils;
 
 import org.webchat.domain.Chat;
 import org.webchat.repository.ChatRepo;
-import org.webchat.repository.Impl.ChatRepoImpl;
-import org.webchat.repository.Impl.UsersRepoImpl;
 import org.webchat.repository.UserRepo;
 
 public class CreateChatForTwoUser {

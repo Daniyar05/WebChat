@@ -1,4 +1,4 @@
-package org.webchat.usecase;
+package org.webchat.utils;
 
 import org.webchat.repository.UserMoodRepo;
 
