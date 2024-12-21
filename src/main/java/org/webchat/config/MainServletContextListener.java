@@ -32,7 +32,7 @@ import org.webchat.utils.UserManager;
 @Slf4j
 @WebListener
 public class MainServletContextListener implements ServletContextListener {
-
+    private DatabaseConnection databaseConnection;
     @Override
     public void contextInitialized(ServletContextEvent sce) {
 
@@ -41,7 +41,7 @@ public class MainServletContextListener implements ServletContextListener {
         final Logger log = LoggerFactory.getLogger(LoginServlet.class);
         context.setAttribute("log", log);
 
-        final DatabaseConnection databaseConnection = new DatabaseConnection();
+        databaseConnection = new DatabaseConnection();
         context.setAttribute("databaseConnection", databaseConnection);
 
         final ConfigurationChat configurationChat = ConfigurationChat.getConfig();
@@ -85,6 +85,6 @@ public class MainServletContextListener implements ServletContextListener {
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-
+        databaseConnection.close();
     }
 }

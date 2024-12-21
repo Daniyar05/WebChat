@@ -40,5 +40,7 @@ public class DatabaseConnection {
     public Connection getConnection() throws SQLException {
         return dataSource.getConnection();
     }
-
+    public void close(){
+        ((HikariDataSource) dataSource).close();
+    }
 }
