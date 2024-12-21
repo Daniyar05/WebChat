@@ -28,18 +28,14 @@ public class AvatarServlet extends HttpServlet {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
-
         FileService fileService = (FileService) getServletContext().getAttribute("fileService");
-
         try {
-
             if (req.getPart("avatar") == null) {
                 resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 return;
             }
             fileService.updateFile(userId, req.getPart("avatar"));
             resp.setStatus(HttpServletResponse.SC_OK);
-
         } catch (Exception e) {
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             e.printStackTrace();

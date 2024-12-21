@@ -20,14 +20,12 @@ public class ListChatsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
         String thisUserId = (String) request.getSession().getAttribute("userId");
-
         Optional<User> optionalUser = ((UserRepo) getServletContext().getAttribute("usersRepo")).getUser(thisUserId);
+
         if (optionalUser.isPresent()){
             User user = optionalUser.get();
             request.setAttribute("chats", ChatsLaunch.getChat(user.getIdChats(), ((ChatRepo) getServletContext().getAttribute("chatRepo"))));
             request.setAttribute("user_id", user.getId());
-
-
             request.getRequestDispatcher("/list.jsp").forward(request, response);
             return;
         }

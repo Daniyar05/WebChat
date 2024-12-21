@@ -19,5 +19,6 @@ public interface ChatRepo {
 
     boolean hasUserById(String userId, String chatId);
 
+    Optional<List<Message>> getHistoryForChat(String chatId, int offset, int limit);
     List<String> findAllUsersInChat(String chatId);
 }

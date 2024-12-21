@@ -39,9 +39,5 @@ public class Chat {
             tempList.add(history.get(i));
         }
         return Optional.of(tempList);
-//        return Optional.of(this.getHistory().stream()
-//                        .skip(offset)
-//                        .limit(limit)
-//                        .collect(Collectors.toList()));
     }
 }

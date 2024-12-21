@@ -26,10 +26,7 @@ public class ChatRepoImpl implements ChatRepo {
     public Optional<List<Message>> getHistoryForChat(String chatId, int offset, int limit) {
 
         Chat chat = getChat(chatId).orElseThrow(() -> new IllegalArgumentException("Chat not found"));
-        return Optional.of(chat.getHistory().stream()
-                .skip(offset)
-                .limit(limit)
-                .collect(Collectors.toList()));
+        return chat.getHistory(offset, limit);
     }
 
 

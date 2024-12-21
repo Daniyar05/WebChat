@@ -19,9 +19,7 @@ import java.util.*;
 @Slf4j
 @ServerEndpoint(value = "/ws", configurator = WebSocketConfigurer.class)
 public class ChatCommunicationWebSocketHandler {
-
     private static final Map<String, Session> sessions = Collections.synchronizedMap(new HashMap<>());
-
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Setter
@@ -54,10 +52,6 @@ public class ChatCommunicationWebSocketHandler {
 
         String userId = findUserIdBySession(session);
         chatRepository.addMessage(webSocketMessage.getChatId(), new Message(userRepository.getUser(userId).get(),webSocketMessage.getMessage()));
-////                .chatId(webSocketMessage.getChatId())
-//                .userFrom(userRepository.getUser(userId).get())
-//                .content(webSocketMessage.getMessage())
-//                .build());
 
         List<String> usersId = chatRepository.findAllUsersInChat(webSocketMessage.getChatId());
         for(String user : usersId) {
