@@ -189,6 +189,18 @@ public class ChatDAOImpl implements ChatDAO {
         }
         return users;
     }
+    @Override
+    public void deleteOldChats(){
+        String query = "DELETE FROM chats WHERE created_at < NOW() - INTERVAL '1 day' ;";
+
+        try (Connection connection = databaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private Optional<User> getUser(String idUser) {
         String userQuery = "SELECT * FROM users WHERE id_user = ?";
@@ -216,4 +228,6 @@ public class ChatDAOImpl implements ChatDAO {
         }
         return Optional.empty();
     }
+
+
 }

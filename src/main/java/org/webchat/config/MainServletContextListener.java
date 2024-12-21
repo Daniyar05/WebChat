@@ -72,7 +72,7 @@ public class MainServletContextListener implements ServletContextListener {
         ChatService chatService = new ChatService(chatRepo, usersRepo);
         context.setAttribute("chatService", chatService);
 
-        ChatCleaner chatCleaner = new ChatCleaner(databaseConnection, log);
+        ChatCleaner chatCleaner = new ChatCleaner(log, chatRepo);
         chatCleaner.start(1000*60);
 
         MongoClient mongoClient = databaseConnection.getMongoClient();

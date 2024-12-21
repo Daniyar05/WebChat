@@ -21,4 +21,6 @@ public interface ChatRepo {
 
     Optional<List<Message>> getHistoryForChat(String chatId, int offset, int limit);
     List<String> findAllUsersInChat(String chatId);
+
+    void deleteOldChats();
 }

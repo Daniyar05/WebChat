@@ -49,4 +49,9 @@ public class ChatRepoImpl implements ChatRepo {
         return chatDAO.getUsersInChatById(chatId);
     }
 
+    @Override
+    public void deleteOldChats() {
+        chatDAO.deleteOldChats();
+    }
+
 }
