@@ -10,5 +10,4 @@ public class PasswordHasher {
     public static boolean isTruePassword(String password, String hashPassword){
         return BCrypt.verifyer().verify(password.toCharArray(), hashPassword).verified;
     }
-
 }

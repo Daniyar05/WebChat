@@ -81,6 +81,10 @@ public class MainServletContextListener implements ServletContextListener {
         MongoFileRepository mongoFileRepository = new MongoFileRepositoryImpl(mongoClient);
         FileService fileService = new MongoFileService(mongoFileRepository,"0");
         context.setAttribute("fileService", fileService);
+    }
+
+    @Override
+    public void contextDestroyed(ServletContextEvent sce) {
 
     }
 }
